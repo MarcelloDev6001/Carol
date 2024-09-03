@@ -1,11 +1,10 @@
 const Jimp = require("jimp");
-const MainSettings = require("../mainsettings.js");
 
 class ImageHelper {
   static async writeTextFittedToImage(input, text, output) {
     try {
       // Carrega a imagem
-      const image = await Jimp.read(MainSettings.getFullPath(input));
+      const image = await Jimp.read(input);
       const imageWidth = image.bitmap.width;
 
       let font;
@@ -26,7 +25,7 @@ class ImageHelper {
       image.print(font, 10, 10, text.text, imageWidth - 20);
 
       // Salva a imagem com o texto
-      await image.writeAsync(MainSettings.getFullPath(output));
+      await image.writeAsync(output);
 
       console.log("Imagem processada e salva com o texto ajustado!");
       return true;
