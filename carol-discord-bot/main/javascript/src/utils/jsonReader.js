@@ -1,36 +1,52 @@
 const fs = require("fs");
 
 class JsonReader {
-  static async read(filePath) {
-    fs.readFile(filePath, { encoding: "utf8" }, (err, data) => {
-      if (err) {
-        console.error("Erro ao ler o arquivo:", err);
-      }
+  static read(filePath) {
+    // fs.readFile(filePath, { encoding: "utf8" }, (err, data) => {
+    //   if (err) {
+    //     console.error("Erro ao ler o arquivo:", err);
+    //   }
 
-      console.log(`File Content: ${data}`);
+    //   console.log(`File Path: ${filePath}`);
+    //   console.log(`File Content: ${data}`);
+
+    //   try {
+    //     let obj = JSON.parse(data); // Analise o JSON
+    //     return obj;
+    //   } catch (e) {
+    //     console.error("Erro ao analisar JSON:", e.message);
+    //     return {};
+    //   }
+    // });
+    try {
+      let jsonData = fs.readFileSync(filePath, { encoding: "utf8" });
+      // console.log(`File Path: ${filePath}`);
+      // console.log(`File Content: ${jsonData}`);
 
       try {
-        let obj = JSON.parse(data); // Analise o JSON
+        let obj = JSON.parse(jsonData); // Analise o JSON
         return obj;
       } catch (e) {
-        console.error("Erro ao analisar JSON:", e.message);
+        console.error("Failed to parse JSON:", e.message);
         return {};
       }
-    });
+    } catch (error) {
+      console.log("Failed to read JSON file: " + error.message);
+    }
   }
 
-  static save(filePath, jsonContent) {
+  static save(filePath, jsonObject) {
     try {
       fs.writeFile(
         filePath,
-        JSON.stringify(jsonContent, null, 2),
+        JSON.stringify(jsonObject, null, 2),
         function (err) {
           if (err) throw err;
-          console.log("Arquivo trocado!");
+          // console.log("File Changed!");
         }
       );
     } catch (e) {
-      console.log(`error on save JSON: ${e}`);
+      console.log(`Error on save JSON: ${e.message}`);
     }
   }
 }

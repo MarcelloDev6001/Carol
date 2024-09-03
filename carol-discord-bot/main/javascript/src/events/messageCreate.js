@@ -3,6 +3,7 @@ const {
   GatewayIntentBits,
   AttachmentBuilder,
   MessagePayload,
+  EmbedBuilder,
 } = require("discord.js");
 const ImageHelper = require("../utils/imageHelper.js").ImageHelper;
 const ImageText = require("../utils/imageHelper.js").ImageText;
@@ -25,13 +26,21 @@ class MessageCreateEvent {
     if (message.author.bot) return;
 
     // ! ISN'T WORKING NOW
-    // await this.updateExperienceAndLevel(message.author, message.guild);
+    await this.updateExperienceAndLevel(
+      message.author,
+      message.guild,
+      message.channel
+    );
     // console.log(__dirname);
-    console.log(path.join(__dirname, `../data/experience/`));
+    // console.log(path.join(__dirname, `../data/experience/`));
 
     if (message.content.toLowerCase().includes("gay")) {
       message.reply("foda");
     }
+
+    // if (message.content.toLowerCase().includes("tempest")) {
+    //   message.delete();
+    // }
 
     if (
       (message.content.toLowerCase().includes("compreensível") ||
@@ -52,7 +61,61 @@ class MessageCreateEvent {
   // *      }
   // *    }
   // *  }
-  async updateExperienceAndLevel(user, guild) {}
+  async updateExperienceAndLevel(user, guild, channel) {
+    let expJson = JsonReader.read("./data/experience.json");
+    if (expJson == undefined) {
+      expJson = {};
+    }
+    if (!(guild.id in expJson)) {
+      expJson[guild.id] = {};
+    }
+    if (user.id in expJson[guild.id]) {
+      expJson[guild.id][user.id] = {
+        xp: expJson[guild.id][user.id]["xp"] + 1,
+        level: expJson[guild.id][user.id]["level"],
+      };
+    } else {
+      expJson[guild.id][user.id] = {
+        xp: 0,
+        level: 0,
+      };
+    }
+    if (
+      expJson[guild.id][user.id]["xp"] - 1000 >
+      expJson[guild.id][user.id]["level"] * 1000
+    ) {
+      // * level up
+      expJson[guild.id][user.id]["level"] += 1;
+      await this.sendLevelUpMessage(
+        user,
+        channel,
+        expJson[guild.id][user.id]["level"],
+        expJson[guild.id][user.id]["xp"]
+      );
+    }
+    JsonReader.save("./data/experience.json", expJson);
+  }
+
+  async sendLevelUpMessage(user, channel, userLevel, userXP) {
+    let levelUPEmbed = new EmbedBuilder()
+      .setColor(0x0099ff)
+      .setTitle("Level UP!")
+      .setAuthor({
+        name: this.client.user.displayName,
+        iconURL: this.client.user.avatarURL({ size: 1024 }),
+        url: `https://Discordapp.com/users/${this.client.user.id.toString()}`,
+      })
+      .setDescription(
+        `Parabens <@${
+          user.id
+        }>, você acabou de evoluir para o level ${userLevel.toString()}! (${userXP.toString()} xp)`
+      )
+      .setThumbnail(user.avatarURL({ size: 1024 }));
+    channel.send({
+      content: `<@${user.id.toString()}>`,
+      embeds: [levelUPEmbed],
+    });
+  }
 }
 
 module.exports = MessageCreateEvent;
