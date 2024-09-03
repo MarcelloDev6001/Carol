@@ -11,11 +11,12 @@ const path = require("path");
 const fs = require("fs");
 const JsonReader = require("../utils/jsonReader.js");
 const TXTReader = require("../utils/txtReader.js");
+const { prefix } = require("../../config.json");
 
 class MessageCreateEvent {
   message = null;
   client = null;
-  expJson = {};
+  // expJson = {};
   constructor(message, client) {
     this.message = message;
     this.client = client;
@@ -25,17 +26,25 @@ class MessageCreateEvent {
   async doMessageEvent(message) {
     if (message.author.bot) return;
 
-    // ! ISN'T WORKING NOW
-    await this.updateExperienceAndLevel(
+    // * why that was too complex at the first time?
+    let expJson = await this.updateExperienceAndLevel(
       message.author,
       message.guild,
-      message.channel
+      message.channel,
+      1,
+      0
     );
     // console.log(__dirname);
     // console.log(path.join(__dirname, `../data/experience/`));
 
     if (message.content.toLowerCase().includes("gay")) {
       message.reply("foda");
+    }
+
+    if (message.content == prefix + "level") {
+      let userXP = expJson[message.guild.id][message.author.id]["xp"];
+      let userLevel = expJson[message.guild.id][message.author.id]["level"];
+      message.reply(`Seu level é ${userLevel} (${userXP})`);
     }
 
     // if (message.content.toLowerCase().includes("tempest")) {
@@ -61,7 +70,36 @@ class MessageCreateEvent {
   // *      }
   // *    }
   // *  }
-  async updateExperienceAndLevel(user, guild, channel) {
+  async getXP(user, guild, channel) {
+    // await this.updateExperienceAndLevel(user, guild, channel, 0, 0); // * just to have sure there ain't any null value on JSON file
+    let expJson = JsonReader.read("./data/experience.json");
+    if (!guild.id in expJson) {
+      expJson[guild.id] = {};
+    }
+    if (!(user.id in expJson[guild.id])) {
+      expJson[guild.id][user.id] = {
+        xp: 0,
+        level: 0,
+      };
+    }
+    return expJson[guild.id][user.id]["xp"];
+  }
+  async getLevel(user, guild, channel) {
+    // * basically the same code of getXP()
+    //  this.updateExperienceAndLevel(user, guild, channel, 0, 0); // * just to have sure there ain't any null value on JSON file
+    let expJson = JsonReader.read("./data/experience.json");
+    if (!guild.id in expJson) {
+      expJson[guild.id] = {};
+    }
+    if (!(user.id in expJson[guild.id])) {
+      expJson[guild.id][user.id] = {
+        xp: 0,
+        level: 0,
+      };
+    }
+    return expJson[guild.id][user.id]["level"];
+  }
+  async updateExperienceAndLevel(user, guild, channel, xpToAdd, levelToAdd) {
     let expJson = JsonReader.read("./data/experience.json");
     if (expJson == undefined) {
       expJson = {};
@@ -71,8 +109,8 @@ class MessageCreateEvent {
     }
     if (user.id in expJson[guild.id]) {
       expJson[guild.id][user.id] = {
-        xp: expJson[guild.id][user.id]["xp"] + 1,
-        level: expJson[guild.id][user.id]["level"],
+        xp: expJson[guild.id][user.id]["xp"] + xpToAdd,
+        level: expJson[guild.id][user.id]["level"] + levelToAdd,
       };
     } else {
       expJson[guild.id][user.id] = {
@@ -93,7 +131,8 @@ class MessageCreateEvent {
         expJson[guild.id][user.id]["xp"]
       );
     }
-    JsonReader.save("./data/experience.json", expJson);
+    await JsonReader.save("./data/experience.json", expJson);
+    return expJson;
   }
 
   async sendLevelUpMessage(user, channel, userLevel, userXP) {
