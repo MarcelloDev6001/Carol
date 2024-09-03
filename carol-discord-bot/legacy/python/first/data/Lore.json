@@ -1,0 +1,153 @@
+{
+    "Shirro Star": {
+        "name": "Shirro Star",
+        "outfit": "https://cdn.discordapp.com/attachments/1223450314070560829/1229920218680266864/RobloxScreenShot20240416_192338167.png?ex=66316f76&is=661efa76&hm=a95f5c4df1c327aac3178f9572532265633e5d31da550c3d2370cd6081167e97&",
+        "objectives": "Achar sua irmã perdida, descobrir sobre as lendas antigas",
+        "id": 1,
+        "personality": "carismatico, caotico, Perversa",
+        "aliases": "Hades, kitsu, mystery, Overmage, Bfm e yinyan",
+        "weapon": "guitarra machado",
+        "abilities": {
+            "FOUCUS": "para tudo que esta fazendo e se concentra para soltar uma nota paralisante. (dura 1.3 segundos)",
+            "Rap": "solta varias notas em sequencia em um curto periodo de tempo",
+            "DJ":"toca musica aprimorando status dos aliados proximos",
+            "FINAL SHOWDOWN": "Quando estiver fraco (low hp algo assim) usara suas ultimas forças para tocar uma ultima nota, dando dano explosivo em area e drenando todo seu hp",
+            "Beijo curativo": "beije seus aliados e cure todo seu hp só pode ser usado uma vez a cada partida",
+            "Sacrificio": "sacrifique todo seu hp atual para reviver um aliado (não pode ser revivido até o proximo estagio)"
+        }
+    },
+    "VOID": {
+        "name": "VOID",
+        "outfit": "https://cdn.discordapp.com/attachments/1223450314070560829/1229899768759582762/RobloxScreenShot20240416_174838535.png?ex=66315c6b&is=661ee76b&hm=7c528ee221370695f803624f69e1b61af33617e79424419c6cfb3f28dfdda398&",
+        "objectives": "Trazer o mundo devolta a escuridão. Corrompendo os seres vivos e espalhando o virus do caos e escuridão",
+        "id": 2,
+        "personality": "Possesivo, odeia tudo que não seja preto.",
+        "aliases": "Nenhum",
+        "weapon": "Nenhuma",
+        "abilities": {
+            "SOUL STEAL": "rouba temporariamente a posse do corpo de um individuo",
+            "CORRUPTION": "corroi a mente do alvo e o deixa extremamente agressivo",
+            "BLACKOUT": "Transforma o seu arredor em preto para se camuflar e atacar secretamente os seus inimigos",
+            "BLACK HOLE": "Puxa o inimigo para a sua mão assim impedindo fugas ou tentativas de ataques a longa distancia"
+        }
+    },
+    "Hades": {
+        "name": "Hades",
+        "outfit": "https://cdn.discordapp.com/attachments/1218321355330686977/1237109060059533322/RobloxScreenShot20240506_152916381.png?ex=663a7318&is=66392198&hm=770bcb5ca9030ec77a47a2c0b7057b451584eb1507b03b2080f0317ad5f44831&",
+        "objectives": "Se vingar de quem o torturou no passado",
+        "id": 3,
+        "personality": "Estressado, explosivo",
+        "aliases": "todos menos o preto e o branco",
+        "weapon": "Hell Scythe e Demon Tail",
+        "abilities": {
+            "Eruption": "Prende sua foice no chão e abre uma pequena cratera que tem lava dentro",
+            "Death presence": "Faz com que todos ao redor temam eles e os fracos tem a sua cabeça cortada com sua foice",
+            "Flaming Scythe": "arremessa sua foice em um objeto ou em alguém e consegue cortar esse objeto/pessoa ao meio muito facilmente (e pode fazer-lo pegar fogo)",
+            "Flaming Tornado": "Taca sua foice e faz ela ficar rodando por 5 segundos pra fazer um tornado de fogo",
+            "Flaming Trail": "Taca sua foice e faz ela correr em linha reta em até 250km/h e deixa um rastro de fogo de até 100m",
+            "HP Stealer": "Prende sua calda em um inimigo (como se fosse uma seringa) e roupa o HP dele",
+            "Indefinido": "Passiva: Quando alguém tenta acertar Hades com sua própria foice, ele meio que \"Pausa o tempo\" para desviar da foice"
+        },
+        "extras": [
+            "Ele odeia calor",
+            "A bebida favorita dele é fanta",
+            "Ele ama coxinha",
+            "Ele odeia skibidi toilet",
+            "Ele tem bastante energia, ao ponto de ter que dormir só a cada 2 dias",
+            "Quando está uma noite onde ele não precisa dormir pois não tem sono, ele vaga pelas ruas da cidade",
+            "Sua cauda é extremamente resistente (ao ponto de precisar de uma lâmina de 0.03mm com um elefante empurrando a lâmina)",
+            "Sua cauda tem uma espécie de \"coração invertido e vermelho\" que é bem afiado e ele usa isso de arma"
+        ]
+    },
+    "ARCangel": {
+        "name": "ARCangel",
+        "outfit": "https://cdn.discordapp.com/attachments/1223450314070560829/1229906211558789180/RobloxScreenShot20240416_174915384.png?ex=6631626b&is=661eed6b&hm=e8afe1d93d0d2f860f18dcaff50a1224b216127d817629dbaa1366248d7bd927&&",
+        "objectives": "Punir todos os seres humanos e libertar o mundo do mal e da escuridão",
+        "id": 4,
+        "personality": "sadica, sobria, calma.",
+        "aliases": "Nenhum",
+        "weapon": "heaven's punisher",
+        "abilities": {
+            "MADE IN HAVEN": "Jogar vc em uma ilusão em q tudo da certo na sua vida enquanto ela calmamente lhe corta ao meio, tem como escapar, só ser imperfeito..",
+            "SKYFALL": "lança varias lanças do céu",
+            "LOOK AT ME": "tira os olhos \"falsos\" e força a camera a olhar para ela por 5 segundos lhe fazendo incapaz de enchergar os personagens"
+        }
+    },
+    "Kitsu": {
+        "name": "Kitsu",
+        "outfit": "https://cdn.discordapp.com/attachments/1223450314070560829/1229922076781969438/RobloxScreenShot20240416_193106096.png?ex=66317131&is=661efc31&hm=1a38771fb37016caddaacf47cda6bf5824a66b6ce41773443131b3e9bdd546a1&&&",
+        "objectives": "Nenhum",
+        "id": 5,
+        "personality": "muito orgulhosa, perversa, inteligente (o orgulho atrapalha o raciocínio), zenko, calma",
+        "aliases": "todos (exceto preto, branco e cinza)",
+        "weapon": "Bō",
+        "abilities": {
+            "Bone": "gera duas cabeças de raposas feitas fogo em cada ponta de seu bastão, elas mordem",
+            "aumentar de tamanho": "aumenta de tamanho, uai",
+            "regeneração": "demora 3 minutos e todas as partes tem que estar juntas"
+        },
+        "extras": [
+            "ainda é virgem",
+            "odeia guaxinins",
+            "irmã do líder dos rosas",
+            "as vezes se queima com o própio fogo"
+        ]
+    },
+    "Mystery Medic": {
+        "name": "Mystery medic",
+        "outfit": "https://cdn.discordapp.com/attachments/1223450314070560829/1229923059100811399/RobloxScreenShot20240416_193454480.png?ex=6631721c&is=661efd1c&hm=f5f83c9936a5503f1f2b0119d85c31c641398ad375cf4d129fa42652b27f5dcf&&&",
+        "objectives": "destruir a existencia do preto",
+        "id": 6,
+        "personality": "temperamental, engraçado",
+        "aliases": "todos menos o preto",
+        "weapon": "agulha gigante",
+        "abilities": {
+            "BoOmb": "joga uma grande bomba que é capas de destruir uma casa grande",
+            "Mystery surprise": "pode pegar qualquer item de seu chapeu magico",
+            "Virus letal": "ao cortar alguem ele injeta um virus capas de causar paralisia, e morte",
+            "Cura intantanea": "injeta uma substancia capaz de recuperar rapidamente o aliado mas apos 30 min ele sente 3 vezes o dano que recebeu instantaneamente"
+        }
+    },
+    "Overmage": {
+        "name": "Overmage",
+        "outfit": "https://cdn.discordapp.com/attachments/1223450314070560829/1229923750456201276/RobloxScreenShot20240416_193742641.png?ex=663172c0&is=661efdc0&hm=49c7f7c6a1dc376664af081cf759f42cc2351fce7a70a25a8131ed2b657b51a3&&&&",
+        "objectives": "Restaurar o seu antigo clã que foi atacado pela \"branca\"",
+        "id": 7,
+        "personality": "serio, maluco, maniaco",
+        "aliases": "todos menos o preto e o branco",
+        "weapon": "dual foice",
+        "abilities": {
+            "poison blade": "deixa a sua lamina corrosiva e venenosa, mas por causa da corrosão ela pode danificar a lamina da foice",
+            "Green eye": "recebe uma precisão e visão noturna",
+            "OverSee": "passiva. veja o futuro por metade de um segundo. (0.50 segundos)"
+        }
+    },
+    "YinYan": {
+        "name": "YinYan",
+        "outfit": "https://cdn.discordapp.com/attachments/1223450314070560829/1229924162458357881/RobloxScreenShot20240416_193905742.png?ex=66317323&is=661efe23&hm=d4d3330f6a7c43b534edfb889ac5b695344c9994d9cbe06dfd484a61f29d54eb&&&&&",
+        "objectives": "descobrir o seu passado e o passado do mundo",
+        "id": 8,
+        "personality": "serio, calmo, possessivo",
+        "aliases": "Ninguém",
+        "weapon": "minigun dupla",
+        "abilities": {
+            "zincarea": "solta um metal que liquido corrompe os metais presentes na terra nele",
+            "GeniusBrain": "consegue criar qualquer coisa em segundos e analisar tudo ao seu redor",
+            "Atomic explosion": "joga atomos que ao entrar em contato com a pele, eles explodem"
+        }
+    },
+    "BFM": {
+        "name": "Blue Flame Monkey",
+        "outfit": "https://cdn.discordapp.com/attachments/1223450314070560829/1229924468810579968/RobloxScreenShot20240416_194030585.png?ex=6631736c&is=661efe6c&hm=baf739b193647cc4525a4760c849cd082a79667b576e38443109733ef6aebf91&&&&&&",
+        "objectives": "trazer a paz e felicidade a todos",
+        "id": 9,
+        "personality": "brincalhão, infantil, louco",
+        "aliases": "todos que apoiam ele",
+        "weapon": "katana labareda",
+        "abilities": {
+            "bola gigante azul": "cria uma puta bola de fogo azul que dizima tudo pela frente",
+            "Raios queimantes": "cria raios de fogo que seguem o inimigo",
+            "SOUL FLAME(uso unico)": "se junta ao fogo de sua alma gerando um fogo ciano envolta de seu corpo em que deixa todas as suas habilidades mais fortes e capas de queimar a alma, assim impedindo a regeneração"
+        }
+    }
+}

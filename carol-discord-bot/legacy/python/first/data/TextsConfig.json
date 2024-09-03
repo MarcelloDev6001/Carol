@@ -1,0 +1,57 @@
+{
+    "default": {
+        "commands": {
+            "tts": {
+                "invalid_text": "Insina um texto válido.",
+                "un_voiced": "Você tem que estar em um canal de voz.",
+                "success": "Tocado com sucesso.",
+                "fail": "Ocorreu um erro: {error}"
+            },
+            "call-som": {
+                "out_of_call": "Você tem que estar em uma call.",
+                "success": "Audio tocado com sucesso.",
+                "fail": "Ocorreu um erro: {error}"
+            },
+            "music-play": {
+                "invalid_url": "Insira um URL válido.",
+                "out_of_call": "Você precisa estar em um canal de voz.",
+                "restrict_age": "Essa música tem restrição de idade, por isso não consigo toca-la.",
+                "extract_error": "Deu algum erro na extração, por isso não consigo toca-la.",
+                "members_only_error": "Essa música é só para membros, por isso não consigo toca-la.",
+                "unavailable_error": "Essa música está indisponível, por isso não consigo toca-la.",
+                "private_error": "Essa música é privada, por isso não consigo toca-la.",
+                "live_stream_error": "Essa música é uma live e está com erro, por isso não consigo toca-la.",
+                "fail": "Essa música eu nem sei mais oq é o erro, por isso não consigo toca-la.",
+                "list_added": "{ytq.title} adicionada à lista.",
+                "music_asked_by": "Pedida por {interaction.user.display_name}",
+                "music_playing_now_title": "Tocando agora: {ytq.title}",
+                "views_title": "Visualizações",
+                "duration_title": "Duração",
+                "publish_date_title": "Data de publicação",
+                "footer_who_asked_by": "Pedida por {interaction.user.display_name}",
+                "finished_music": "Acabei a música que tinha ;>",
+                "incorrect_channel": "Use esse comando no canal {musicchannel.mention}."
+            },
+            "music-volume": {
+                "nothing_playing": "Não tem nada tocando.",
+                "invalid_value": "Tem que ser um valor entre 0 e 1000.",
+                "new_volume": "Volume setado para {volume}.",
+                "invalid_channel": "Use esse comando no canal {musicchannel.mention}."
+            },
+            "music-stop": {
+                "nothing_playing": "Não tem nada tocando.",
+                "success": "{interaction.user.mention} Pediu para eu parar, então eu parei.",
+                "invalid_channel": "Use esse comando no canal {musicchannel.mention}."
+            },
+            "music-list": {
+                "nothing_on_list": "Não tem nenhuma música na lista.",
+                "invalid_channel": "Use esse comando no canal {musicchannel.mention}."
+            },
+            "music-skip": {
+                "out_of_call": "Você precisa estar em um canal de voz.",
+                "success": "{interaction.user.mention} pediu pra eu pular, então eu pulei.",
+                "invalid_channel": "Use esse comando no canal {musicchannel.mention}."
+            }
+        }
+    }
+}
