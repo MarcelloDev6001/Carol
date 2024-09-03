@@ -9,6 +9,7 @@ const ImageText = require("../utils/imageHelper.js").ImageText;
 const path = require("path");
 const fs = require("fs");
 const JsonReader = require("../utils/jsonReader.js");
+const TXTReader = require("../utils/txtReader.js");
 
 class MessageCreateEvent {
   message = null;
@@ -25,6 +26,8 @@ class MessageCreateEvent {
 
     // ! ISN'T WORKING NOW
     // await this.updateExperienceAndLevel(message.author, message.guild);
+    // console.log(__dirname);
+    console.log(path.join(__dirname, `../data/experience/`));
 
     if (message.content.toLowerCase().includes("gay")) {
       message.reply("foda");
@@ -49,55 +52,7 @@ class MessageCreateEvent {
   // *      }
   // *    }
   // *  }
-  async updateExperienceAndLevel(user, guild) {
-    this.expJson = {};
-    this.expJson = await JsonReader.read(
-      path.join(__dirname, "../../data/experience.json")
-    );
-    console.log(
-      `Json File Path:${path.join(__dirname, "../../data/experience.json")}`
-    );
-    console.log(`expJson Content: ${this.expJson}`);
-    if (this.expJson == undefined) {
-      this.expJson = {
-        // * just using my own template :)
-        0: {
-          0: {
-            xp: 0,
-            level: 0,
-          },
-        },
-        0: {
-          0: {
-            xp: 0,
-            level: 0,
-          },
-        },
-      };
-    }
-    // console.log(this.expJson);
-
-    if (!(guild.id in this.expJson)) {
-      this.expJson[guild.id] = {};
-    }
-
-    if (!(user.id in this.expJson[guild.id])) {
-      this.expJson[guild.id][user.id] = {
-        xp: 1,
-        level: 0,
-      };
-    } else {
-      this.expJson[guild.id][user.id] = {
-        xp: this.expJson[guild.id][user.id]["xp"] + 1,
-        level: 0,
-      };
-    }
-    console.log(this.expJson);
-    JsonReader.save(
-      path.join(__dirname, "../../data/experience.json"),
-      this.expJson
-    );
-  }
+  async updateExperienceAndLevel(user, guild) {}
 }
 
 module.exports = MessageCreateEvent;
