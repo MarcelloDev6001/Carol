@@ -2,6 +2,11 @@ const { EmbedBuilder } = require("discord.js");
 const JsonReader = require("../utils/jsonReader.js");
 const { prefix } = require("../../config.json");
 
+// spam system stuffs
+const spamMap = new Map();
+const LIMIT = 5;
+const TIME = 9000;
+
 class MessageCreateEvent {
   message = null;
   client = null;
@@ -24,25 +29,13 @@ class MessageCreateEvent {
       0
     );
 
-    if (message.content.toLowerCase().includes("gay")) {
-      message.reply("foda");
-    }
-
     if (message.content == prefix + "level") {
       let userXP = expJson[message.guild.id][message.author.id]["xp"];
       let userLevel = expJson[message.guild.id][message.author.id]["level"];
       message.reply(`Seu level é ${userLevel} (${userXP}xp)`);
     }
 
-    if (
-      (message.content.toLowerCase().includes("compreensível") ||
-        message.content.toLowerCase().includes("compreensivel")) &&
-      message.author.id == this.conf.predefinedUsersIDs["hades"]
-    ) {
-      message.reply(
-        "aqui pra vc, ó\nhttps://tenor.com/view/trabalho-gif-25189190"
-      );
-    }
+    await this.checkForSpam(message.member, message);
   }
 
   // * json format: {
@@ -135,6 +128,60 @@ class MessageCreateEvent {
       content: `<@${user.id.toString()}>`,
       embeds: [levelUPEmbed],
     });
+  }
+
+  async checkForSpam(user, message) {
+    if (spamMap.has(user.id)) {
+      const userData = spamMap.get(user.id);
+      const { lastMessage, timer } = userData;
+      const difference =
+        message.createdTimestamp - lastMessage.createdTimestamp;
+
+      clearTimeout(timer);
+
+      if (difference < TIME) {
+        userData.msgCount += 1;
+        if (userData.msgCount >= LIMIT) {
+          try {
+            user
+              .timeout(60000, "Spammou demais") // * 60000 = 60 seconds
+              .then(console.log(`Member timeouted: ${user.displayName}`));
+          } catch (error) {
+            // ! maybe the "spammer" is a modder, so you can't timeout him
+            console.log(error);
+          }
+          message.reply(
+            "Você está enviando mensagens muito rápido! Por favor, pare de spammar."
+          );
+          userData.msgCount = 0;
+          return true;
+          // Adicione outras ações, como kick, ban, mute, etc.
+        } else {
+          userData.timer = setTimeout(() => {
+            spamMap.delete(user.id);
+          }, TIME);
+          spamMap.set(user.id, userData);
+        }
+      } else {
+        spamMap.set(user.id, {
+          msgCount: 1,
+          lastMessage: message,
+          timer: setTimeout(() => {
+            spamMap.delete(user.id);
+          }, TIME),
+        });
+      }
+    } else {
+      const fn = setTimeout(() => {
+        spamMap.delete(user.id);
+      }, TIME);
+      spamMap.set(user.id, {
+        msgCount: 1,
+        lastMessage: message,
+        timer: fn,
+      });
+    }
+    return false;
   }
 }
 

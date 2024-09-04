@@ -1,0 +1,7 @@
+{ 
+    "prefix": "h.",
+    "timeout_enabled": true,
+    "timeout_max_messages": 5,
+    "timeout_max_time": 9,
+    "timeout_time": 60
+}
