@@ -5,11 +5,10 @@ const {
 } = require("discord.js");
 const JsonReader = require("../utils/jsonReader.js");
 const { prefix } = require("../../config.json");
+const XPSystem = require("../experience/xp.js");
+const SpamSystem = require("../automod/spam.js");
 
-// spam system stuffs
-const spamMap = new Map();
-const LIMIT = 5;
-const TIME = 9000;
+const spamSystem = new SpamSystem(5, 9000);
 
 class MessageCreateEvent {
   message = null;
@@ -24,7 +23,7 @@ class MessageCreateEvent {
     if (message.author.bot) return;
 
     // * why that was too complex at the first time?
-    let expJson = await this.updateExperienceAndLevel(
+    let expJson = await XPSystem.updateExperienceAndLevel(
       message.author,
       message.guild,
       message.channel,
@@ -47,34 +46,10 @@ class MessageCreateEvent {
         // *];
         case "levelrank":
           // * WIP...
-          // let baseImg = require("../../")
-          let usersInExpJson = {};
-          let users = [];
-          let finalMessageResult = "Top 5 de mais level:\n\n";
-          if (!message.guild.id in expJson) {
-            message.reply("Tem ninguém no rank de Level");
-            break;
-          } else {
-            usersInExpJson = expJson[message.guild.id];
-          }
-          let altIndex = 0;
-          for (const index in usersInExpJson) {
-            const memberLvl = usersInExpJson[index];
-            let userKey = await Object.keys(usersInExpJson)[altIndex];
-            users.push({
-              memberID: userKey,
-              xp: memberLvl["xp"],
-              level: memberLvl["level"],
-            });
-            altIndex += 1;
-          }
-          users.sort((a, b) => {
-            let xpA = a["xp"];
-            let xpB = b["xp"];
-            return xpB - xpA;
-          });
-          // users.reverse();
           var funnyIndexCounter = 0;
+          let finalMessageResult = "Top 5 de mais level:\n\n";
+          let users = [];
+          users = await XPSystem.getUsersRank(message, 5);
           users.forEach((element) => {
             funnyIndexCounter += 1;
             finalMessageResult +=
@@ -88,153 +63,12 @@ class MessageCreateEvent {
           break;
       }
     }
-
-    await this.checkForSpam(message.member, message);
-  }
-
-  // * json format: {
-  // *    GUILD_ID: {
-  // *      USER_ID: {
-  // *        "xp": 0,
-  // *        "level": 0
-  // *      }
-  // *    }
-  // *  }
-  async getXP(user, guild, channel) {
-    let expJson = JsonReader.read("./data/experience.json");
-    if (!guild.id in expJson) {
-      expJson[guild.id] = {};
-    }
-    if (!(user.id in expJson[guild.id])) {
-      expJson[guild.id][user.id] = {
-        xp: 0,
-        level: 0,
-      };
-    }
-    return expJson[guild.id][user.id]["xp"];
-  }
-  async getLevel(user, guild, channel) {
-    // * basically the same code of getXP()
-    let expJson = JsonReader.read("./data/experience.json");
-    if (!guild.id in expJson) {
-      expJson[guild.id] = {};
-    }
-    if (!(user.id in expJson[guild.id])) {
-      expJson[guild.id][user.id] = {
-        xp: 0,
-        level: 0,
-      };
-    }
-    return expJson[guild.id][user.id]["level"];
-  }
-  async updateExperienceAndLevel(user, guild, channel, xpToAdd, levelToAdd) {
-    let expJson = JsonReader.read("./data/experience.json");
-    if (expJson == undefined) {
-      expJson = {};
-    }
-    if (!(guild.id in expJson)) {
-      expJson[guild.id] = {};
-    }
-    if (user.id in expJson[guild.id]) {
-      expJson[guild.id][user.id] = {
-        xp: expJson[guild.id][user.id]["xp"] + xpToAdd,
-        level: expJson[guild.id][user.id]["level"] + levelToAdd,
-      };
-    } else {
-      expJson[guild.id][user.id] = {
-        xp: 0,
-        level: 0,
-      };
-    }
-    if (
-      expJson[guild.id][user.id]["xp"] - 1000 >
-      expJson[guild.id][user.id]["level"] * 1000
-    ) {
-      // * level up
-      expJson[guild.id][user.id]["level"] += 1;
-      await this.sendLevelUpMessage(
-        user,
-        channel,
-        expJson[guild.id][user.id]["level"],
-        expJson[guild.id][user.id]["xp"]
+    let userSpammed = await spamSystem.checkForSpam(message.member, message);
+    if (userSpammed) {
+      message.reply(
+        "Você está enviando mensagens muito rápido! Por favor, pare de spammar."
       );
     }
-    JsonReader.save("./data/experience.json", expJson);
-    return expJson;
-  }
-
-  async sendLevelUpMessage(user, channel, userLevel, userXP) {
-    let levelUPEmbed = new EmbedBuilder()
-      .setColor(0xffffff)
-      .setTitle("Level UP!")
-      .setAuthor({
-        name: this.client.user.displayName,
-        iconURL: this.client.user.avatarURL({ size: 1024 }),
-        url: `https://Discordapp.com/users/${this.client.user.id.toString()}`,
-      })
-      .setDescription(
-        `Parabens <@${
-          user.id
-        }>, você acabou de evoluir para o level ${userLevel.toString()}! (${userXP.toString()} xp)`
-      )
-      .setThumbnail(user.avatarURL({ size: 1024 }));
-    channel.send({
-      content: `<@${user.id.toString()}>`,
-      embeds: [levelUPEmbed],
-    });
-  }
-
-  async checkForSpam(user, message) {
-    if (spamMap.has(user.id)) {
-      const userData = spamMap.get(user.id);
-      const { lastMessage, timer } = userData;
-      const difference =
-        message.createdTimestamp - lastMessage.createdTimestamp;
-
-      clearTimeout(timer);
-
-      if (difference < TIME) {
-        userData.msgCount += 1;
-        if (userData.msgCount >= LIMIT) {
-          try {
-            await user
-              .timeout(60000, "Spammou demais") // * 60000 = 60 seconds
-              .then(console.log(`Member timeouted: ${user.displayName}`));
-          } catch (error) {
-            // ! maybe the "spammer" is a modder, so you can't timeout him
-            console.error(error);
-          }
-          message.reply(
-            "Você está enviando mensagens muito rápido! Por favor, pare de spammar."
-          );
-          userData.msgCount = 0;
-          return true;
-        } else {
-          userData.timer = setTimeout(() => {
-            spamMap.delete(user.id);
-          }, TIME);
-          spamMap.set(user.id, userData);
-        }
-      } else {
-        spamMap.set(user.id, {
-          msgCount: 1,
-          lastMessage: message,
-          timer: setTimeout(() => {
-            spamMap.delete(user.id);
-          }, TIME),
-        });
-      }
-    } else {
-      const fn = setTimeout(() => {
-        spamMap.delete(user.id);
-      }, TIME);
-      spamMap.set(user.id, {
-        msgCount: 1,
-        lastMessage: message,
-        timer: fn,
-      });
-    }
-    return false;
   }
 }
 

@@ -37,14 +37,7 @@ class JsonReader {
 
   static save(filePath, jsonObject) {
     try {
-      fs.writeFile(
-        filePath,
-        JSON.stringify(jsonObject, null, 2),
-        function (err) {
-          if (err) throw err;
-          // console.log("File Changed!");
-        }
-      );
+      fs.writeFileSync(filePath, JSON.stringify(jsonObject, null, 2));
     } catch (e) {
       console.log(`Error on save JSON: ${e.message}`);
     }
