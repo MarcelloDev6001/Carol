@@ -1,6 +1,3 @@
-const SlashCommandPingOther = require("../commands/other/ping");
-const ping = require("../commands/other/ping");
-
 class InteractionCreateEvent {
   constructor(interaction) {
     this.doInteractionEvent(interaction);
@@ -13,7 +10,7 @@ class InteractionCreateEvent {
 
     switch (commandName) {
       case "ping":
-        SlashCommandPingOther.doCommand(interaction);
+        // SlashCommandPingOther.doCommand(interaction);
         break;
 
       default:

@@ -7,6 +7,7 @@ const JsonReader = require("../utils/jsonReader.js");
 const { prefix } = require("../../config.json");
 const XPSystem = require("../experience/xp.js");
 const SpamSystem = require("../automod/spam.js");
+const MoneyConversion = require("../others/moneyconversion.js");
 
 const spamSystem = new SpamSystem(5, 9000);
 
@@ -58,6 +59,31 @@ class MessageCreateEvent {
           });
           message.reply(finalMessageResult);
           break;
+
+        case "money":
+          let args = message.content
+            .replace(prefix, "")
+            .replace(messageCommand + " ", "")
+            .split(" ");
+          if (args.length < 2) {
+            message.reply(
+              "Tem que ter moeda de origem, moeda de conversão e o valor."
+            );
+            break;
+          }
+          let amount = parseInt(args[2]);
+          try {
+            let finalResult = await MoneyConversion.fromTo(
+              args[0],
+              args[1],
+              amount
+            );
+            message.reply(
+              amount.toString() + " pra " + args[1] + " é " + finalResult
+            );
+          } catch (e) {
+            message.reply("Ocorreu um erro: " + e);
+          }
 
         default:
           break;
