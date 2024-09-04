@@ -1,4 +1,8 @@
-const { EmbedBuilder } = require("discord.js");
+const {
+  EmbedBuilder,
+  PermissionFlagsBits,
+  DiscordAPIError,
+} = require("discord.js");
 const JsonReader = require("../utils/jsonReader.js");
 const { prefix } = require("../../config.json");
 
@@ -193,12 +197,12 @@ class MessageCreateEvent {
         userData.msgCount += 1;
         if (userData.msgCount >= LIMIT) {
           try {
-            user
+            await user
               .timeout(60000, "Spammou demais") // * 60000 = 60 seconds
               .then(console.log(`Member timeouted: ${user.displayName}`));
           } catch (error) {
             // ! maybe the "spammer" is a modder, so you can't timeout him
-            console.log(error);
+            console.error(error);
           }
           message.reply(
             "Você está enviando mensagens muito rápido! Por favor, pare de spammar."
