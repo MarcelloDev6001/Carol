@@ -10,7 +10,6 @@ const TIME = 9000;
 class MessageCreateEvent {
   message = null;
   client = null;
-  // expJson = {};
   constructor(message, client) {
     this.message = message;
     this.client = client;
@@ -105,7 +104,7 @@ class MessageCreateEvent {
         expJson[guild.id][user.id]["xp"]
       );
     }
-    await JsonReader.save("./data/experience.json", expJson);
+    JsonReader.save("./data/experience.json", expJson);
     return expJson;
   }
 
@@ -155,7 +154,6 @@ class MessageCreateEvent {
           );
           userData.msgCount = 0;
           return true;
-          // Adicione outras ações, como kick, ban, mute, etc.
         } else {
           userData.timer = setTimeout(() => {
             spamMap.delete(user.id);
