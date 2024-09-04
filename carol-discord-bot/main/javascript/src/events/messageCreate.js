@@ -1,16 +1,5 @@
-const {
-  Client,
-  GatewayIntentBits,
-  AttachmentBuilder,
-  MessagePayload,
-  EmbedBuilder,
-} = require("discord.js");
-const ImageHelper = require("../utils/imageHelper.js").ImageHelper;
-const ImageText = require("../utils/imageHelper.js").ImageText;
-const path = require("path");
-const fs = require("fs");
+const { EmbedBuilder } = require("discord.js");
 const JsonReader = require("../utils/jsonReader.js");
-const TXTReader = require("../utils/txtReader.js");
 const { prefix } = require("../../config.json");
 
 class MessageCreateEvent {
@@ -34,8 +23,6 @@ class MessageCreateEvent {
       1,
       0
     );
-    // console.log(__dirname);
-    // console.log(path.join(__dirname, `../data/experience/`));
 
     if (message.content.toLowerCase().includes("gay")) {
       message.reply("foda");
@@ -44,12 +31,8 @@ class MessageCreateEvent {
     if (message.content == prefix + "level") {
       let userXP = expJson[message.guild.id][message.author.id]["xp"];
       let userLevel = expJson[message.guild.id][message.author.id]["level"];
-      message.reply(`Seu level é ${userLevel} (${userXP})`);
+      message.reply(`Seu level é ${userLevel} (${userXP}xp)`);
     }
-
-    // if (message.content.toLowerCase().includes("tempest")) {
-    //   message.delete();
-    // }
 
     if (
       (message.content.toLowerCase().includes("compreensível") ||
@@ -71,7 +54,6 @@ class MessageCreateEvent {
   // *    }
   // *  }
   async getXP(user, guild, channel) {
-    // await this.updateExperienceAndLevel(user, guild, channel, 0, 0); // * just to have sure there ain't any null value on JSON file
     let expJson = JsonReader.read("./data/experience.json");
     if (!guild.id in expJson) {
       expJson[guild.id] = {};
@@ -86,7 +68,6 @@ class MessageCreateEvent {
   }
   async getLevel(user, guild, channel) {
     // * basically the same code of getXP()
-    //  this.updateExperienceAndLevel(user, guild, channel, 0, 0); // * just to have sure there ain't any null value on JSON file
     let expJson = JsonReader.read("./data/experience.json");
     if (!guild.id in expJson) {
       expJson[guild.id] = {};
@@ -137,7 +118,7 @@ class MessageCreateEvent {
 
   async sendLevelUpMessage(user, channel, userLevel, userXP) {
     let levelUPEmbed = new EmbedBuilder()
-      .setColor(0x0099ff)
+      .setColor(0xffffff)
       .setTitle("Level UP!")
       .setAuthor({
         name: this.client.user.displayName,
