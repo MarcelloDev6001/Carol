@@ -28,10 +28,61 @@ class MessageCreateEvent {
       0
     );
 
-    if (message.content == prefix + "level") {
-      let userXP = expJson[message.guild.id][message.author.id]["xp"];
-      let userLevel = expJson[message.guild.id][message.author.id]["level"];
-      message.reply(`Seu level é ${userLevel} (${userXP}xp)`);
+    if (message.content.startsWith(prefix)) {
+      let messageCommand = message.content.split(" ")[0].replace(prefix, "");
+      switch (messageCommand.toLowerCase()) {
+        case "level":
+          let userXP = expJson[message.guild.id][message.author.id]["xp"];
+          let userLevel = expJson[message.guild.id][message.author.id]["level"];
+          message.reply(`Seu level é ${userLevel} (${userXP}xp)`);
+          break;
+
+        // *that silly format: [
+        // *  {"user_id": {"xp": 0, "level": 0}},
+        // *  {"user_id": {"xp": 0, "level": 0}}
+        // *];
+        case "levelrank":
+          // * WIP...
+          // let baseImg = require("../../")
+          let usersInExpJson = {};
+          let users = [];
+          let finalMessageResult = "Top 5 de mais level:\n\n";
+          if (!message.guild.id in expJson) {
+            message.reply("Tem ninguém no rank de Level");
+            break;
+          } else {
+            usersInExpJson = expJson[message.guild.id];
+          }
+          let altIndex = 0;
+          for (const index in usersInExpJson) {
+            const memberLvl = usersInExpJson[index];
+            let userKey = await Object.keys(usersInExpJson)[altIndex];
+            users.push({
+              memberID: userKey,
+              xp: memberLvl["xp"],
+              level: memberLvl["level"],
+            });
+            altIndex += 1;
+          }
+          users.sort((a, b) => {
+            let xpA = a["xp"];
+            let xpB = b["xp"];
+            return xpB - xpA;
+          });
+          // users.reverse();
+          var funnyIndexCounter = 0;
+          users.forEach((element) => {
+            funnyIndexCounter += 1;
+            finalMessageResult +=
+              funnyIndexCounter.toString() +
+              `: <@${element["memberID"]}> (level ${element["level"]} e xp de ${element["xp"]})\n`;
+          });
+          message.reply(finalMessageResult);
+          break;
+
+        default:
+          break;
+      }
     }
 
     await this.checkForSpam(message.member, message);
