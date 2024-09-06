@@ -2,6 +2,7 @@ const {
   EmbedBuilder,
   PermissionFlagsBits,
   DiscordAPIError,
+  Message,
 } = require("discord.js");
 const JsonReader = require("../utils/jsonReader.js");
 const { prefix } = require("../../config.json");
@@ -25,6 +26,10 @@ class SpamSystem {
 
       if (difference < this.TIME) {
         userData.msgCount += 1;
+        if (userData.messages == [] || userData.messages === undefined) {
+          userData.messages = [];
+        }
+        userData.messages.push([message]);
         if (userData.msgCount >= this.LIMIT) {
           try {
             await user
@@ -62,6 +67,17 @@ class SpamSystem {
       });
     }
     return false;
+  }
+
+  async deleteSpammedMessages(user) {
+    let userSpammedMessages = this.spamMap.get(user.id).messages;
+    for (let index = 0; index < userSpammedMessages.length; index++) {
+      try {
+        await userSpammedMessages[index].delete();
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 }
 
