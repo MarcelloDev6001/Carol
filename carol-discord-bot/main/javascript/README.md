@@ -1,2 +1,17 @@
 # Carol
+
 Here's the full source code for the Carol Bot for Discord
+
+# Before you run the code, you need to do some silly things:
+
+1. Create a file called `config.json` and put this inside the file:
+
+```js
+{
+	"clientId": "1214985204985241600",
+	"guildId": "1218323333096013924",
+	"token": "MTIxNDk4NTIwNDk4NTI0MTYwMA.GjbbZw.h0Gt1lEM4rUXYVgxCyhaTGyS_hOqZrInBfiwSk",
+	"command_running_message": "Carol está pensando...",
+	"prefix": "c."
+}
+```
