@@ -8,9 +8,9 @@ Here's the full source code for the Carol Bot for Discord
 
 ```js
 {
-	"clientId": "1214985204985241600",
-	"guildId": "1218323333096013924",
-	"token": "MTIxNDk4NTIwNDk4NTI0MTYwMA.GjbbZw.h0Gt1lEM4rUXYVgxCyhaTGyS_hOqZrInBfiwSk",
+	"clientId": BOT_CLIENT_ID,
+	"guildId": YOUR_GUILD_ID (or leave it blank),
+	"token": YOUR_TOKEN,
 	"command_running_message": "Carol está pensando...",
 	"prefix": "c."
 }
