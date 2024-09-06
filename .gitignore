@@ -1,5 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# discord bot things
+carol-discord-bot/main/javascript/config.json
+carol-discord-bot/legacy/python/config/config.py
+
 # compiled output
 /dist
 /tmp
