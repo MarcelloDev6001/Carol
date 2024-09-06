@@ -51,6 +51,9 @@ class MessageCreateEvent {
     if (message.content.startsWith(prefix)) {
       let messageCommand = message.content.split(" ")[0].replace(prefix, "");
       switch (messageCommand.toLowerCase()) {
+        case "github": // * to see the source code of the bot :)
+          message.reply("https://github.com/MarcelloDev6001/Carol");
+          break;
         case "level":
           let userXP = expJson[message.guild.id][message.author.id]["xp"];
           let userLevel = expJson[message.guild.id][message.author.id]["level"];
@@ -136,6 +139,7 @@ class MessageCreateEvent {
               files: [qrcodeAttachment],
             })
           );
+          break;
 
         // ! ISN'T WORKING FOR NOW
         // case "tts":
