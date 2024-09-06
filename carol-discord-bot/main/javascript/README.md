@@ -2,7 +2,7 @@
 
 Here's the full source code for the Carol Bot for Discord
 
-# Before you run the code, you need to do some silly things:
+### Before you run the code, you need to do some silly things:
 
 1. Create a file called `config.json` and put this inside the file:
 
