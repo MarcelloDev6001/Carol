@@ -19,6 +19,8 @@ const fs = require("fs");
 const LetsGoGamblingCommand = require("../messagecommands/gamble.js");
 const MoneyMessageCommand = require("../messagecommands/money.js");
 const LevelMessageCommand = require("../messagecommands/level.js");
+const path = require("path");
+const TextMessageCommands = require("../messagecommands/text.js");
 
 const spamSystem = new SpamSystem(5, 9000);
 
@@ -80,6 +82,10 @@ class MessageCreateEvent {
         case "gamble":
           await LetsGoGamblingCommand.gamble(message);
           break;
+
+        // case "fancytext":
+        //   await TextMessageCommands.fancy(message, prefix, messageCommand);
+        //   break;
 
         default:
           break;

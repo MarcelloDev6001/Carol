@@ -3,6 +3,7 @@ const {
   createAudioPlayer,
   createAudioResource,
   AudioPlayer,
+  AudioPlayerStatus,
 } = require("@discordjs/voice");
 const { GuildMember, Guild, VoiceChannel } = require("discord.js");
 const fs = require("fs");
@@ -16,13 +17,25 @@ class DiscordCallHelper {
     leaveOnFinish = false
   ) {
     try {
-      let voiceConnection = joinVoiceChannel({
+      const connection = joinVoiceChannel({
         channelId: member.voice.channel.id,
         guildId: guild.id,
         adapterCreator: guild.voiceAdapterCreator,
       });
-      let audioBuffer = fs.readFileSync(audioFile);
-      voiceConnection.playOpusPacket(audioBuffer);
+
+      const player = createAudioPlayer();
+      const resource = createAudioResource(path.join(__dirname, audioFile));
+
+      player.play(resource);
+      connection.subscribe(player);
+
+      player.on(AudioPlayerStatus.Playing, () => {
+        console.log("The audio player has started playing!");
+      });
+
+      player.on("error", (error) => {
+        console.error(`Error: ${error.message}`);
+      });
     } catch (error) {
       console.error(error);
     }
