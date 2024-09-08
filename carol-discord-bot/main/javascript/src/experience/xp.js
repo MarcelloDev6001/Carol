@@ -6,7 +6,7 @@ const {
 const JsonReader = require("../utils/jsonReader.js");
 const { prefix } = require("../../config.json");
 
-// * json format: {
+// * simple json format: {
 // *    GUILD_ID: {
 // *      USER_ID: {
 // *        "xp": 0,

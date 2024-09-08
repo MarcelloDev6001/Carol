@@ -1,5 +1,6 @@
 const { map } = require("jquery");
 
+// ! isn't working for now...
 class TextMessageCommands {
   static fancy(message, prefix, messageCommand) {
     let text = message.content.replace(prefix + messageCommand + " ", "");

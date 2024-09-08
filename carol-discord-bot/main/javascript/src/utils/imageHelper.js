@@ -1,6 +1,7 @@
 const Jimp = require("jimp");
 
 class ImageHelper {
+  // ! not working for now...
   static async writeTextFittedToImage(input, text, output) {
     try {
       // Carrega a imagem

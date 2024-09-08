@@ -1,3 +1,4 @@
+// * when you run a command, this is called on index.js
 class InteractionCreateEvent {
   constructor(interaction) {
     this.doInteractionEvent(interaction);

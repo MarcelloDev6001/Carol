@@ -8,6 +8,8 @@ const {
 } = require("discord.js");
 
 class LetsGoGamblingCommand {
+  // * the logic is simple
+  // * it creates 3 random numbers and say "I CAN'T STOP WINNING" if they are equals, or else, it says "OH DANG IT"
   static async gamble(message, prefix, messageCommand) {
     message.reply("LET'S GO GAMBLING");
     let randomNumbersForGamble = [

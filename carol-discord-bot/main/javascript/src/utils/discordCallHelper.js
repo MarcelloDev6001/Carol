@@ -10,6 +10,7 @@ const fs = require("fs");
 const path = require("path");
 
 class DiscordCallHelper {
+  // ! not working for now..
   static async joinAndPlayAudioOnVoiceChannel(
     member = GuildMember,
     guild = Guild,

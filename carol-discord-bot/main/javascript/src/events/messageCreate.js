@@ -24,6 +24,7 @@ const TextMessageCommands = require("../messagecommands/text.js");
 
 const spamSystem = new SpamSystem(5, 9000);
 
+// * when you send a message, this is called on index.js
 class MessageCreateEvent {
   message = null;
   client = null;

@@ -16,6 +16,8 @@ class SpamSystem {
     this.TIME = time;
   }
   async checkForSpam(user, message) {
+    // * the logic is simples:
+    // * if you send more than {LIMIT} messages in {TIME}, you will get timeouted
     if (this.spamMap.has(user.id)) {
       const userData = this.spamMap.get(user.id);
       const { lastMessage, timer } = userData;

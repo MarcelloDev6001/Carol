@@ -1,3 +1,4 @@
+// * not used for now...
 class Events {
   static ready = "ready";
   static messageCreate = "messageCreate";

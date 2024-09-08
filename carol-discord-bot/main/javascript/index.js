@@ -18,14 +18,17 @@ client.once("ready", () => {
   SlashComms.initCommands();
 });
 
+// * when a message is sent
 client.on("messageCreate", (message) => {
   const msg = new messageCreateEvent(message, client);
 });
 
+// * when you run a slash command
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
 
   const interct = new InteractionCreateEvent(interaction);
 });
 
+// * finally, it starts the bot
 client.login(token);

@@ -1,3 +1,4 @@
+// * converts a coin type to another
 class MoneyConversion {
   static async fromTo(moneyType, moneyConversion, amount) {
     const url = `https://api.exchangerate-api.com/v4/latest/${moneyType.toUpperCase()}`;

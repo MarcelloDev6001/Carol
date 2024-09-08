@@ -1,5 +1,6 @@
 const MoneyConversion = require("../others/moneyconversion.js");
 
+// * convert, for exemple: USD to BRL
 class MoneyMessageCommand {
   static async money(message, prefix, messageCommand) {
     let args = message.content

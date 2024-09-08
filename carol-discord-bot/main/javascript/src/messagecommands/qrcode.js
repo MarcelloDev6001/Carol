@@ -2,6 +2,7 @@ const QRCode = require("qrcode");
 const fs = require("fs");
 const { MessagePayload, AttachmentBuilder } = require("discord.js");
 
+// * self explanatory, right?
 class QRCodeGenerator {
   static async qrcode(message, prefix, messageCommand) {
     let arg = message.content.replace(prefix + messageCommand + " ", "");

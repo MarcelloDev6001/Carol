@@ -1,6 +1,7 @@
 const fs = require("fs");
 
 class TXTReader {
+  // * read all content of a file and returns it
   static read(filePath) {
     fs.readFile(filePath, { encoding: "utf8" }, (err, data) => {
       if (err) {
