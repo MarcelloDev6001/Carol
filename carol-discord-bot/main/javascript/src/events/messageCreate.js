@@ -7,6 +7,7 @@ const LetsGoGamblingCommand = require("../messagecommands/gamble.js");
 const MoneyMessageCommand = require("../messagecommands/money.js");
 const LevelMessageCommand = require("../messagecommands/level.js");
 const FuneralMessageCommand = require("../messagecommands/funeral.js");
+const ShipMessageCommand = require("../messagecommands/ship.js");
 
 const spamSystem = new SpamSystem(5, 9000);
 
@@ -58,6 +59,7 @@ class MessageCreateEvent {
         case "github": // * to see the source code of the bot :)
           message.reply("https://github.com/MarcelloDev6001/Carol");
           break;
+
         case "level":
           await LevelMessageCommand.level(message, prefix, messageCommand);
           break;
@@ -80,10 +82,11 @@ class MessageCreateEvent {
 
         case "funeral":
           await FuneralMessageCommand.funeral(message, prefix, messageCommand);
+          break;
 
-        // case "fancytext":
-        //   await TextMessageCommands.fancy(message, prefix, messageCommand);
-        //   break;
+        case "ship":
+          await ShipMessageCommand.ship(message, prefix, messageCommand);
+          break;
 
         default:
           break;

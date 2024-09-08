@@ -35,16 +35,13 @@ class JimpImage {
     this.image.blur(blurRadio);
   }
 
-  static overlay(
-    image = JimpImage,
-    overlayImage = JimpImage,
-    position = Vector2
-  ) {
-    return image.composite(overlayImage, position.x, position.y, {
+  static overlay(image, overlayImage, position = Vector2) {
+    image.composite(overlayImage, position.x, position.y, {
       mode: Jimp.BLEND_SOURCE_OVER,
       opacityDest: 1,
       opacitySource: 1,
     });
+    return image;
   }
 }
 
