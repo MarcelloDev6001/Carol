@@ -1,10 +1,5 @@
-const {
-  EmbedBuilder,
-  PermissionFlagsBits,
-  DiscordAPIError,
-} = require("discord.js");
+const { EmbedBuilder } = require("discord.js");
 const JsonReader = require("../utils/jsonReader.js");
-const { prefix } = require("../../config.json");
 
 // * simple json format: {
 // *    GUILD_ID: {

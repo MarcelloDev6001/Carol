@@ -1,11 +1,4 @@
-const {
-  EmbedBuilder,
-  PermissionFlagsBits,
-  DiscordAPIError,
-  Message,
-  MessagePayload,
-  AttachmentBuilder,
-} = require("discord.js");
+const { MessagePayload } = require("discord.js");
 
 class LetsGoGamblingCommand {
   // * the logic is simple

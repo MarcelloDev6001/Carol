@@ -1,26 +1,11 @@
-const {
-  EmbedBuilder,
-  PermissionFlagsBits,
-  DiscordAPIError,
-  Message,
-  MessagePayload,
-  AttachmentBuilder,
-} = require("discord.js");
-const JsonReader = require("../utils/jsonReader.js");
+const { Message } = require("discord.js");
 const { prefix } = require("../../config.json");
 const XPSystem = require("../experience/xp.js");
 const SpamSystem = require("../automod/spam.js");
-const MoneyConversion = require("../others/moneyconversion.js");
-const { createTTSFile } = require("../audio/tts.js");
-const DiscordCallHelper = require("../utils/discordCallHelper.js");
-const TTS = require("../audio/tts.js");
 const QRCodeGenerator = require("../messagecommands/qrcode.js");
-const fs = require("fs");
 const LetsGoGamblingCommand = require("../messagecommands/gamble.js");
 const MoneyMessageCommand = require("../messagecommands/money.js");
 const LevelMessageCommand = require("../messagecommands/level.js");
-const path = require("path");
-const TextMessageCommands = require("../messagecommands/text.js");
 
 const spamSystem = new SpamSystem(5, 9000);
 

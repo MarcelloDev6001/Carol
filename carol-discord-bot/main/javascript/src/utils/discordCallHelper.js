@@ -2,11 +2,9 @@ const {
   joinVoiceChannel,
   createAudioPlayer,
   createAudioResource,
-  AudioPlayer,
   AudioPlayerStatus,
 } = require("@discordjs/voice");
-const { GuildMember, Guild, VoiceChannel } = require("discord.js");
-const fs = require("fs");
+const { GuildMember, Guild } = require("discord.js");
 const path = require("path");
 
 class DiscordCallHelper {

@@ -1,12 +1,3 @@
-const {
-  EmbedBuilder,
-  PermissionFlagsBits,
-  DiscordAPIError,
-  Message,
-} = require("discord.js");
-const JsonReader = require("../utils/jsonReader.js");
-const { prefix } = require("../../config.json");
-
 class SpamSystem {
   spamMap = new Map();
   LIMIT = 5;

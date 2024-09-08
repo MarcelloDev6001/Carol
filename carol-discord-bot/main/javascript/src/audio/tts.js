@@ -1,4 +1,3 @@
-const fs = require("fs");
 const gTTS = require("gtts");
 
 class TTS {
