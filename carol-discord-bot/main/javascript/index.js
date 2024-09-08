@@ -14,7 +14,7 @@ const { token } = require("./config.json");
 const SlashComms = require("./deploy-commands.js");
 
 client.once("ready", () => {
-  console.log(`Bot ${client.user.tag} está online!`);
+  console.log(`Bot ${client.user.tag} is online!`);
   SlashComms.initCommands();
 });
 
