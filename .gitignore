@@ -2,7 +2,7 @@
 
 # discord bot things
 carol-discord-bot/main/javascript/config.json
-carol-discord-bot/legacy/python/config/config.py
+carol-discord-bot/
 
 # compiled output
 /dist
