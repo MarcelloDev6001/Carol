@@ -1,3 +1,4 @@
+const { MessagePayload } = require("discord.js");
 const XPSystem = require("../experience/xp.js");
 
 // * just shows you level (or the level of another member) and shows the level rank of a specific guild
@@ -26,7 +27,12 @@ class LevelMessageCommand {
         funnyIndexCounter.toString() +
         `: <@${element["memberID"]}> (level ${element["level"]} e xp de ${element["xp"]})\n`;
     });
-    message.reply(finalMessageResult);
+    message.reply(
+      new MessagePayload(message, {
+        content: finalMessageResult,
+        allowedMentions: false,
+      })
+    );
   }
 }
 

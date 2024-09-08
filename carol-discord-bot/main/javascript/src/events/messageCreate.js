@@ -21,10 +21,6 @@ class MessageCreateEvent {
     this.doMessageEvent(message);
   }
 
-  async wait(ms, value) {
-    return new Promise((resolve) => setTimeout(resolve, ms, value));
-  }
-
   async doMessageEvent(message = Message) {
     if (message.author.bot) return;
 
