@@ -6,6 +6,7 @@ const QRCodeGenerator = require("../messagecommands/qrcode.js");
 const LetsGoGamblingCommand = require("../messagecommands/gamble.js");
 const MoneyMessageCommand = require("../messagecommands/money.js");
 const LevelMessageCommand = require("../messagecommands/level.js");
+const FuneralMessageCommand = require("../messagecommands/funeral.js");
 
 const spamSystem = new SpamSystem(5, 9000);
 
@@ -28,9 +29,17 @@ class MessageCreateEvent {
 
     let userSpammed = await spamSystem.checkForSpam(message.member, message);
     if (userSpammed) {
-      message.reply(
-        "Você está enviando mensagens muito rápido! Por favor, pare de spammar."
-      );
+      try {
+        message.reply(
+          "Você está enviando mensagens muito rápido! Por favor, pare de spammar."
+        );
+      } catch (error) {
+        message.channel.send(
+          "<@" +
+            message.author.id +
+            "> Você está enviando mensagens muito rápido! Por favor, pare de spammar."
+        );
+      }
       // spamSystem.deleteSpammedMessages(message.member);
     }
 
@@ -68,6 +77,9 @@ class MessageCreateEvent {
         case "gamble":
           await LetsGoGamblingCommand.gamble(message);
           break;
+
+        case "funeral":
+          await FuneralMessageCommand.funeral(message, prefix, messageCommand);
 
         // case "fancytext":
         //   await TextMessageCommands.fancy(message, prefix, messageCommand);
