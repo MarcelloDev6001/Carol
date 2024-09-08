@@ -22,10 +22,25 @@ class FuneralMessageCommand {
       user: [userThatDiedID],
       force: true,
     });
-    console.log(userThatDied.get(userThatDiedID));
-    let userThatDiedAvatarURL = `https://cdn.discordapp.com/avatars/${userThatDiedID}/${
-      userThatDied.get(userThatDiedID)["user"].avatar
-    }`;
+    let userThatDiedAvatarURL = "";
+    // console.log(userThatDied.get(userThatDiedID));
+    if (
+      "user" in userThatDied &&
+      "avatar" in userThatDied["user"] &&
+      userThatDied["user"]["avatar"] != null
+    ) {
+      userThatDiedAvatarURL =
+        "https://th.bing.com/th/id/R.c09a43a372ba81e3018c3151d4ed4773?rik=KDIiur5iBWGt8w&pid=ImgRaw&r=0";
+    } else {
+      userThatDiedAvatarURL = `https://cdn.discordapp.com/avatars/${userThatDiedID}/${
+        userThatDied.get(userThatDiedID)["user"].avatar
+      }`;
+    }
+    if (userThatDiedAvatarURL.endsWith("null")) {
+      // * in case he doesn't have an avatar
+      userThatDiedAvatarURL =
+        "https://th.bing.com/th/id/R.c09a43a372ba81e3018c3151d4ed4773?rik=KDIiur5iBWGt8w&pid=ImgRaw&r=0"; // * default discord avatar
+    }
     let userAvatarImage = new JimpImage(await Jimp.read(userThatDiedAvatarURL));
     userAvatarImage.resize(109, 109);
     userAvatarImage.rotate(13);
