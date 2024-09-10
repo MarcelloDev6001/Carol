@@ -8,15 +8,15 @@ class ShipMessageCommand {
   static async ship(message, prefix, messageCommand) {
     let guildMembers = await message.guild.members.fetch();
     let members = guildMembers.map((u) => u.user.id);
-    console.log(members);
+    // console.log(members);
     let randomMemberToShipIndex = Math.floor(
       Math.random() * message.guild.memberCount
     );
     let randomMemberToShip = guildMembers.map((u) => u.user)[
       randomMemberToShipIndex
     ];
-    console.log(message.author);
-    console.log(randomMemberToShip);
+    // console.log(message.author);
+    // console.log(randomMemberToShip);
     let shipPercent =
       (parseInt(message.author.id) + parseInt(randomMemberToShip.id)) % 100;
     let authorAvatarURL = "";
@@ -43,7 +43,7 @@ class ShipMessageCommand {
     );
     // console.log(authorAvatarURL);
     // console.log(randomMemberToShipAvatarURL);
-    console.log(shipPercent);
+    // console.log(shipPercent);
 
     let messageFinalContent = `<@${message.author.id}> + <@${randomMemberToShip.id}> = ${shipPercent} :heart:\n`;
     if (shipPercent >= 75) {
@@ -81,7 +81,6 @@ class ShipMessageCommand {
           files: [finalImageAttachment],
         })
       );
-      console.log("the code is here");
     } else if (shipPercent < 75 && shipPercent >= 50) {
       messageFinalContent += "é, talvez dê certo...";
       let baseShipImage = new JimpImage(
@@ -115,7 +114,6 @@ class ShipMessageCommand {
           files: [finalImageAttachment],
         })
       );
-      console.log("the code is here");
     } else if (shipPercent < 50 && shipPercent >= 30) {
       messageFinalContent += "acho que não vai dar certo esse casal...";
       let baseShipImage = new JimpImage(
@@ -151,7 +149,6 @@ class ShipMessageCommand {
           files: [finalImageAttachment],
         })
       );
-      console.log("the code is here");
     } else if (shipPercent < 35) {
       messageFinalContent += "provavelmente não vão dar certo no futuro...";
       let baseShipImage = new JimpImage(
@@ -185,7 +182,6 @@ class ShipMessageCommand {
           files: [finalImageAttachment],
         })
       );
-      console.log("the code is here");
     }
   }
 }

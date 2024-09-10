@@ -8,7 +8,6 @@ const { GuildMember, Guild } = require("discord.js");
 const path = require("path");
 
 class DiscordCallHelper {
-  // ! not working for now..
   static async joinAndPlayAudioOnVoiceChannel(
     member = GuildMember,
     guild = Guild,
@@ -22,19 +21,16 @@ class DiscordCallHelper {
         adapterCreator: guild.voiceAdapterCreator,
       });
 
+      const resource = createAudioResource(
+        "https://streams.ilovemusic.de/iloveradio8.mp3",
+        {
+          inlineVolume: true,
+        }
+      );
+
       const player = createAudioPlayer();
-      const resource = createAudioResource(path.join(__dirname, audioFile));
-
-      player.play(resource);
       connection.subscribe(player);
-
-      player.on(AudioPlayerStatus.Playing, () => {
-        console.log("The audio player has started playing!");
-      });
-
-      player.on("error", (error) => {
-        console.error(`Error: ${error.message}`);
-      });
+      player.play(resource);
     } catch (error) {
       console.error(error);
     }

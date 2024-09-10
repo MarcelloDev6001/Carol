@@ -8,6 +8,7 @@ const MoneyMessageCommand = require("../messagecommands/money.js");
 const LevelMessageCommand = require("../messagecommands/level.js");
 const FuneralMessageCommand = require("../messagecommands/funeral.js");
 const ShipMessageCommand = require("../messagecommands/ship.js");
+const DiscordCallHelper = require("../utils/discordCallHelper.js");
 
 const spamSystem = new SpamSystem(5, 9000);
 
@@ -82,6 +83,15 @@ class MessageCreateEvent {
 
         case "ship":
           await ShipMessageCommand.ship(message, prefix, messageCommand);
+          break;
+
+        case "radio":
+          await DiscordCallHelper.joinAndPlayAudioOnVoiceChannel(
+            message.member,
+            message.guild,
+            "",
+            false
+          );
           break;
 
         default:

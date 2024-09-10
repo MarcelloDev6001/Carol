@@ -12,11 +12,11 @@ const client = new Client({
 });
 
 const { token } = require("./config.json");
-const SlashComms = require("./deploy-commands.js");
+// const SlashComms = require("./deploy-commands.js");
 
 client.once("ready", () => {
   console.log(`Bot ${client.user.tag} is online!`);
-  SlashComms.initCommands();
+  // SlashComms.initCommands();
 });
 
 // * when a message is sent
