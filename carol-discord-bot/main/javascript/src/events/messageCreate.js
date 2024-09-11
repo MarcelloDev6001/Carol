@@ -85,15 +85,6 @@ class MessageCreateEvent {
           await ShipMessageCommand.ship(message, prefix, messageCommand);
           break;
 
-        case "radio":
-          await DiscordCallHelper.joinAndPlayAudioOnVoiceChannel(
-            message.member,
-            message.guild,
-            "",
-            false
-          );
-          break;
-
         default:
           break;
       }
