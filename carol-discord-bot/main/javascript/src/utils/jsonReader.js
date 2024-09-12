@@ -17,6 +17,7 @@ class JsonReader {
       }
     } catch (error) {
       console.log("Failed to read JSON file: " + error.message);
+      return {};
     }
   }
 

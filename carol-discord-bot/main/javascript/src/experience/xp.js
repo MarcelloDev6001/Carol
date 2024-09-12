@@ -1,97 +1,100 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, MessagePayload, Message } = require("discord.js");
 const JsonReader = require("../utils/jsonReader.js");
+const fs = require("fs");
+const { userId } = require("../../config.json");
 
-// * simple json format: {
-// *    GUILD_ID: {
-// *      USER_ID: {
-// *        "xp": 0,
-// *        "level": 0
-// *      }
-// *    }
-// *  }
+// * new funny format: USER_ID.JSON
+// * {
+// *   GUILD_ID: {
+// *     xp: 0,
+// *     level: 0
+// *   }
+// * }
 class XPSystem {
   static async getXP(user, guild) {
-    let expJson = JsonReader.read("./data/experience.json");
+    let expJson = JsonReader.read(`./data/usersdata/${user.id}.json`);
     if (!guild.id in expJson) {
-      expJson[guild.id] = {};
-    }
-    if (!(user.id in expJson[guild.id])) {
-      expJson[guild.id][user.id] = {
+      expJson[guild.id] = {
         xp: 0,
         level: 0,
       };
     }
-    return expJson[guild.id][user.id]["xp"];
+    return expJson[guild.id]["xp"];
   }
   static async getLevel(user, guild) {
     // * basically the same code of getXP()
-    let expJson = JsonReader.read("./data/experience.json");
+    let expJson = JsonReader.read(`./data/usersdata/${user.id}.json`);
     if (!guild.id in expJson) {
-      expJson[guild.id] = {};
-    }
-    if (!(user.id in expJson[guild.id])) {
-      expJson[guild.id][user.id] = {
+      expJson[guild.id] = {
         xp: 0,
         level: 0,
       };
     }
-    return expJson[guild.id][user.id]["level"];
+    return expJson[guild.id]["level"];
   }
   static async updateExperienceAndLevel(
     user,
     guild,
     channel,
     xpToAdd,
-    levelToAdd
+    levelToAdd,
+    client,
+    message
   ) {
-    let expJson = JsonReader.read("./data/experience.json");
-    if (expJson == undefined) {
+    let expJson = {};
+    try {
+      expJson = JsonReader.read(`./data/usersdata/${user.id}.json`);
+    } catch (error) {
       expJson = {};
     }
     if (!(guild.id in expJson)) {
-      expJson[guild.id] = {};
-    }
-    if (user.id in expJson[guild.id]) {
-      expJson[guild.id][user.id] = {
-        xp: expJson[guild.id][user.id]["xp"] + xpToAdd,
-        level: expJson[guild.id][user.id]["level"] + levelToAdd,
-      };
-    } else {
-      expJson[guild.id][user.id] = {
+      expJson[guild.id] = {
         xp: 0,
         level: 0,
       };
     }
-    if (
-      expJson[guild.id][user.id]["xp"] - 1000 >
-      expJson[guild.id][user.id]["level"] * 1000
-    ) {
-      // * level up
-      expJson[guild.id][user.id]["level"] += 1;
-      await this.sendLevelUpMessage(
+    expJson[guild.id]["xp"] += 1;
+    if (expJson[guild.id]["xp"] - 1000 > expJson[guild.id]["level"] * 1000) {
+      expJson[guild.id]["level"] += 1;
+      let levelUPEmbed = await XPSystem.getLevelUpEmbed(
+        await guild.members.fetch({
+          user: [userId],
+          force: true,
+        }),
         user,
         channel,
-        expJson[guild.id][user.id]["level"],
-        expJson[guild.id][user.id]["xp"]
+        expJson[guild.id]["level"],
+        expJson[guild.id]["xp"]
+      );
+      channel.send(
+        new MessagePayload(message, {
+          content: `<@${user.id}>`,
+          embeds: [levelUPEmbed],
+        })
       );
     }
-    JsonReader.save("./data/experience.json", expJson);
+    JsonReader.save(`./data/usersdata/${user.id}.json`, expJson);
     return expJson;
   }
   static async getUsersRank(message, amount) {
-    let expJson = JsonReader.read("./data/experience.json");
-    let usersInExpJson = {};
+    let usersInFolder = fs.readdirSync("./data/usersdata/");
     let users = [];
-    if (!message.guild.id in expJson) {
-      message.reply("Tem ninguém no rank de Level");
-      return [];
-    } else {
-      usersInExpJson = expJson[message.guild.id];
+    for (let index = 0; index < usersInFolder.length; index++) {
+      const element = JsonReader.read(
+        `./data/usersdata/${usersInFolder[index]}`
+      );
+      if (message.guild.id in element) {
+        users.push({
+          memberID: usersInFolder[index].replace(".json", ""),
+          xp: element[message.guild.id]["xp"],
+          level: element[message.guild.id]["level"],
+        });
+      }
     }
     let altIndex = 0;
-    for (const index in usersInExpJson) {
-      const memberLvl = usersInExpJson[index];
-      let userKey = await Object.keys(usersInExpJson)[altIndex];
+    for (const index in users) {
+      const memberLvl = users[index];
+      let userKey = Object.keys(users)[altIndex];
       users.push({
         memberID: userKey,
         xp: memberLvl["xp"],
@@ -109,15 +112,15 @@ class XPSystem {
     });
     return users;
   }
-  static async getLevelUpEmbed(client, user, channel, userLevel, userXP) {
+  static async getLevelUpEmbed(selfUser, user, channel, userLevel, userXP) {
     let levelUPEmbed = new EmbedBuilder()
       .setColor(0xffffff)
       .setTitle("Level UP!")
-      .setAuthor({
-        name: client.user.displayName,
-        iconURL: client.user.avatarURL({ size: 1024 }),
-        url: `https://Discordapp.com/users/${client.user.id.toString()}`,
-      })
+      // .setAuthor({
+      //   name: selfUser["nickname"],
+      //   iconURL: `https://cdn.discordapp.com/avatars/${selfUser.user.id}/${selfUser.user.avatar}`,
+      //   url: `https://Discordapp.com/users/${selfUser.user.id.toString()}`,
+      // })
       .setDescription(
         `Parabens <@${
           user.id

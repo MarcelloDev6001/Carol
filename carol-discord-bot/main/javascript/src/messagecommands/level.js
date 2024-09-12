@@ -4,15 +4,8 @@ const XPSystem = require("../experience/xp.js");
 // * just shows you level (or the level of another member) and shows the level rank of a specific guild
 class LevelMessageCommand {
   static async level(message, prefix, messageCommand) {
-    let expJson = await XPSystem.updateExperienceAndLevel(
-      message.author,
-      message.guild,
-      message.channel,
-      1,
-      0
-    );
-    let userXP = expJson[message.guild.id][message.author.id]["xp"];
-    let userLevel = expJson[message.guild.id][message.author.id]["level"];
+    let userXP = await XPSystem.getXP(message.author, message.guild);
+    let userLevel = await XPSystem.getLevel(message.author, message.guild);
     message.reply(`Seu level é ${userLevel} (${userXP}xp)`);
   }
   static async levelRank(message, prefix, messageCommand) {
@@ -30,7 +23,6 @@ class LevelMessageCommand {
     message.reply(
       new MessagePayload(message, {
         content: finalMessageResult,
-        allowedMentions: false,
       })
     );
   }

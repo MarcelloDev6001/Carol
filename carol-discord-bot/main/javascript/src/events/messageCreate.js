@@ -47,7 +47,9 @@ class MessageCreateEvent {
       message.guild,
       message.channel,
       1,
-      0
+      0,
+      this.client,
+      message
     );
 
     if (message.content.startsWith(prefix)) {
