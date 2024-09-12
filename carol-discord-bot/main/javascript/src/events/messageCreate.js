@@ -9,6 +9,7 @@ const LevelMessageCommand = require("../messagecommands/level.js");
 const FuneralMessageCommand = require("../messagecommands/funeral.js");
 const ShipMessageCommand = require("../messagecommands/ship.js");
 const DiscordCallHelper = require("../utils/discordCallHelper.js");
+const HelpMessageCommand = require("../messagecommands/help.js");
 
 const spamSystem = new SpamSystem(5, 9000);
 
@@ -55,9 +56,9 @@ class MessageCreateEvent {
     if (message.content.startsWith(prefix)) {
       let messageCommand = message.content.split(" ")[0].replace(prefix, "");
       switch (messageCommand.toLowerCase()) {
-        case "github": // * to see the source code of the bot :)
-          message.reply("https://github.com/MarcelloDev6001/Carol");
-          break;
+        // case "github": // * to see the source code of the bot :)
+        //   message.reply("https://github.com/MarcelloDev6001/Carol");
+        //   break;
 
         case "level":
           await LevelMessageCommand.level(message, prefix, messageCommand);
@@ -67,7 +68,7 @@ class MessageCreateEvent {
           await LevelMessageCommand.levelRank(message, prefix, messageCommand);
           break;
 
-        case "money":
+        case "dinheiro":
           await MoneyMessageCommand.money(message, prefix, messageCommand);
           break;
 
@@ -85,6 +86,10 @@ class MessageCreateEvent {
 
         case "ship":
           await ShipMessageCommand.ship(message, prefix, messageCommand);
+          break;
+
+        case "ajuda":
+          await HelpMessageCommand.help(message, this.client.user, prefix);
           break;
 
         default:

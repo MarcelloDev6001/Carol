@@ -1,0 +1,41 @@
+{
+    "XP e Level": [
+        {
+            "name": "level",
+            "description": "Veja seu level atual"
+        },
+        {
+            "name": "levelrank",
+            "description": "Veja as 5 pessoas com mais XP nesse servidor"
+        }
+    ],
+    "Utilidade": [
+        {
+            "name": "dinheiro",
+            "description": "Converta o valor de uma moeda para outra",
+            "example": "USD BRL 10"
+        },
+        {
+            "name": "qrcode",
+            "description": "transforme um texto em um QRCode",
+            "example": "isso é legal"
+        }
+    ],
+    "Entreterimento": [
+        {
+            "name": "ship",
+            "description": "Shipe vc com alguma pessoa aleatória do server"
+        },
+        {
+            "name": "funeral",
+            "description": "Mostre uma homenagem á algum membro que morreu, como? simples, gerando uma imagem dele em um caixão-",
+            "example": "(MARQUE UM MEMBRO AQUI)"
+        }
+    ],
+    "Diversão": [
+        {
+            "name": "gamble",
+            "description": "LET'S GO GAMBLING-"
+        }
+    ]
+}
