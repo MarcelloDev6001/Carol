@@ -10,6 +10,7 @@ const FuneralMessageCommand = require("../messagecommands/funeral.js");
 const ShipMessageCommand = require("../messagecommands/ship.js");
 const DiscordCallHelper = require("../utils/discordCallHelper.js");
 const HelpMessageCommand = require("../messagecommands/help.js");
+const GuildManagingMessageCommands = require("../messagecommands/guildmanaging.js");
 
 const spamSystem = new SpamSystem(5, 9000);
 
@@ -91,6 +92,31 @@ class MessageCreateEvent {
         case "ajuda":
           await HelpMessageCommand.help(message, this.client.user, prefix);
           break;
+
+        case "canalderegistro":
+          let audit_log_channel_id = message.content
+            .replace(prefix + messageCommand + " ", "")
+            .replace("<@", "")
+            .replace(">", "");
+          await GuildManagingMessageCommands.setAuditLogChannel(
+            message.guild,
+            audit_log_channel_id,
+            message
+          );
+          break;
+
+        // ! in development...
+        // case "palavraproibida":
+        //   let unauthorizedWord = message.content.replace(
+        //     prefix + messageCommand + " ",
+        //     ""
+        //   );
+        //   await GuildManagingMessageCommands.setUnauthorizedWord(
+        //     message.guild,
+        //     unauthorizedWord,
+        //     message
+        //   );
+        //   break;
 
         default:
           break;

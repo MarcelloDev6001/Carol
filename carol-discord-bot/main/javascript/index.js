@@ -1,6 +1,10 @@
 const { Client, GatewayIntentBits } = require("discord.js");
 const messageCreateEvent = require("./src/events/messageCreate.js");
 const InteractionCreateEvent = require("./src/events/interactionCreate.js");
+const readline = require("readline");
+
+readline.emitKeypressEvents(process.stdin);
+process.stdin.setRawMode(true);
 
 const client = new Client({
   intents: [
@@ -26,9 +30,15 @@ client.on("messageCreate", (message) => {
 
 // * when you run a slash command
 client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isCommand()) return;
-
   const interct = new InteractionCreateEvent(interaction);
+});
+
+process.stdin.on("keypress", async (str, key) => {
+  if (key.name === "escape") {
+    console.log(`turning off ${client.user.tag}`);
+    await client.destroy();
+    process.exit();
+  }
 });
 
 // * finally, it starts the bot
