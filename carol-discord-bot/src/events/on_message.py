@@ -11,7 +11,7 @@ class onMessageEvent:
     def __init__(self) -> None:
         pass
 
-    async def do(self, message):
+    async def do(self, message, self_bot: commands.Bot):
         userSpammed = await spam_system.check_for_spam(message.author, message)
         if userSpammed:
             try:
@@ -24,4 +24,4 @@ class onMessageEvent:
                     + " Você está enviando mensagens muito rápido! Por favor, pare de spammar."
                 )
             # spamSystem.deleteSpammedMessages(message.member);
-        await xp.XPSystem.update_experience_and_level(1, 0, message)
+        await xp.XPSystem.update_experience_and_level(1, 0, message, self_bot.user)

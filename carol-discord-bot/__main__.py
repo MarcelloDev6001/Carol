@@ -26,7 +26,9 @@ async def hello(ctx):
 
 @bot.event
 async def on_message(message):
-    await on_message_event.do(message)
+    if message.author.id == bot.user.id or message.author.bot:
+        return
+    await on_message_event.do(message, bot)
 
 
 bot.run(config.token)
