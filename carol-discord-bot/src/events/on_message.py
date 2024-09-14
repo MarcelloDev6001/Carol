@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import config
 from src.automod import spam
+from src.experience import xp
 
 spam_system = spam.SpamSystem()
 
@@ -23,3 +24,4 @@ class onMessageEvent:
                     + " Você está enviando mensagens muito rápido! Por favor, pare de spammar."
                 )
             # spamSystem.deleteSpammedMessages(message.member);
+        await xp.XPSystem.update_experience_and_level(1, 0, message)
