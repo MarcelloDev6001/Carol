@@ -76,7 +76,7 @@ class XPSystem:
         with open(file_path, "w") as file:
             json.dump(exp_json, file, indent=4)
 
-        print(exp_json)
+        # print(exp_json)
         return exp_json
 
     @staticmethod
