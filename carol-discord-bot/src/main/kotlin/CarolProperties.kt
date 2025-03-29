@@ -6,16 +6,17 @@ import java.io.File
 data class JsonConfig(
     val token: String,
     val applicationId: Long,
-    val database: String,
-    val address: String,
-    val username: String,
-    val password: String
+    val supabaseUrl: String,
+    val supabaseKey: String,
+    val databaseName: String,
+    val databaseUsername: String,
+    val databasePassword: String
 )
 
 class CarolProperties {
     companion object {
         private const val FILEPATH: String = "carol.properties.json"
-        private fun readConfig(): JsonConfig {
+        public fun readConfig(): JsonConfig {
             val mapper = jacksonObjectMapper()
             return mapper.readValue(File(FILEPATH), JsonConfig::class.java)
         }
