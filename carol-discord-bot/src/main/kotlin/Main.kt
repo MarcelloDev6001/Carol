@@ -2,31 +2,37 @@ package com.hades.discord.bot.carol
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-import com.hades.discord.bot.carol.listeners.OnMessageReceived
+import com.hades.discord.bot.carol.listeners.MessageReceivedListener
+import com.hades.discord.bot.carol.listeners.SlashCommandListener
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
-import net.dv8tion.jda.api.entities.Activity
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent
-import net.dv8tion.jda.api.hooks.ListenerAdapter
+import net.dv8tion.jda.api.interactions.commands.build.Commands
 import net.dv8tion.jda.api.requests.GatewayIntent
+import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction
+import net.dv8tion.jda.api.interactions.commands.OptionType.*
+
+fun updateCommands(builder: JDA)
+{
+    val commands: CommandListUpdateAction = builder.updateCommands()
+    // Add all your commands on this action instance
+    commands.addCommands(
+        Commands.slash("say", "Makes the bot say what you tell it to")
+            .addOption(STRING, "content", "What the bot should say", true), // Accepting a user input
+    );
+
+    // Then finally send your commands to discord using the API
+    commands.queue();
+}
 
 fun main() {
-    val token = "MTIxNDk4NTIwNDk4NTI0MTYwMA.GJi6F1.3zbrFSkSYp2GwKRjrJcupXScTIJEK_W7vvv5H8"  // Substitua pelo token do seu bot
+    val token = CarolProperties.getToken()
+    println("token: " + token)
 
     // here we start
     val builder: JDA = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
-        .addEventListeners(OnMessageReceived())
+        .addEventListeners(MessageReceivedListener())
+        .addEventListeners(SlashCommandListener())
         .build()
-}
 
-class Bot : ListenerAdapter() {
-    override fun onMessageReceived(event: MessageReceivedEvent) {
-        // Why would i get a bot message?
-        if (event.author.isBot) return
-
-        // first command, here where i first started...
-        if (event.message.contentRaw.equals("!olamundo", ignoreCase = true)) {
-            event.message.reply("Olá, mundo!").queue()
-        }
-    }
+    updateCommands(builder)
 }

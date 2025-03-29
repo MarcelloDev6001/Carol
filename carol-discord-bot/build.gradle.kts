@@ -14,6 +14,8 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation("net.dv8tion:JDA:5.0.0-beta.10")
     implementation("club.minnced:jda-ktx:0.12.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
     implementation(kotlin("stdlib"))
 }
 
