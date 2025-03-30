@@ -3,7 +3,7 @@ package com.hades.discord.bot.carol.listeners
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 
-public class MessageReceivedListener : ListenerAdapter() {
+public class CarolMessageReceivedListener : ListenerAdapter() {
     override fun onMessageReceived(event: MessageReceivedEvent) {
         // Why would i get a bot message?
         if (event.author.isBot) return

@@ -2,8 +2,8 @@ package com.hades.discord.bot.carol
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-import com.hades.discord.bot.carol.listeners.MessageReceivedListener
-import com.hades.discord.bot.carol.listeners.SlashCommandListener
+import com.hades.discord.bot.carol.listeners.CarolMessageReceivedListener
+import com.hades.discord.bot.carol.listeners.CarolSlashCommandListener
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.interactions.commands.build.Commands
@@ -30,8 +30,8 @@ fun main() {
 
     // here we start
     val builder: JDA = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
-        .addEventListeners(MessageReceivedListener())
-        .addEventListeners(SlashCommandListener())
+        .addEventListeners(CarolMessageReceivedListener())
+        .addEventListeners(CarolSlashCommandListener())
         .build()
 
     updateCommands(builder)
