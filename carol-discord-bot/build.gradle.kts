@@ -11,6 +11,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
@@ -19,22 +20,15 @@ dependencies {
     implementation("club.minnced:jda-ktx:0.12.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation(kotlin("stdlib"))
 
-    // Dependências do Ktor (TODAS na mesma versão)
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("io.ktor:ktor-client-okhttp:2.3.11") // Versão estável
 
-    // Serialização JSON
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
-
-    // Corrotinas
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-
-    implementation("io.ktor:ktor-client-core:2.3.7")
-    implementation("io.ktor:ktor-client-okhttp:2.3.7") // Para Android/JVM
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.7")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.7")
+    // Mantenha estas outras dependências
+    implementation("io.ktor:ktor-client-core:2.3.11")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.11")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.11")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 }
 
 tasks.test {

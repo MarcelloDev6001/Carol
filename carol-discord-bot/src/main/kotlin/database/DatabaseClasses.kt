@@ -1,19 +1,18 @@
 package com.hades.discord.bot.carol.database
 
-data class Achievement(
-    val id: String,
-    val date: String
-)
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class DiscordMember(
-    val id: String,
-    val money: Long,
+    val id: Long,
+    val money: Int,
     val isBanned: Boolean,
     val xpInGuilds: Map<String, Int>,
     val achievements: List<Achievement>
 )
 
-public final data class DiscordGuild(
-    val id: Long,
-    val commandsAllowed: Array<String>
+@Serializable
+data class Achievement(
+    val name: String,
+    val date: String
 )

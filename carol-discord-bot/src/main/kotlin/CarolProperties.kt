@@ -20,9 +20,12 @@ class CarolProperties {
             val mapper = jacksonObjectMapper()
             return mapper.readValue(File(FILEPATH), JsonConfig::class.java)
         }
-        public fun getToken(): String
-        {
-            return readConfig().token
-        }
+        public fun getToken(): String {return readConfig().token }
+        public fun getApplicationId(): Long {return readConfig().applicationId }
+        public fun getSupabaseUrl(): String {return readConfig().supabaseUrl }
+        public fun getSupabaseKey(): String {return readConfig().supabaseKey }
+        public fun getDatabaseName(): String {return readConfig().databaseName }
+        public fun getDatabaseUsername(): String {return readConfig().databaseUsername }
+        public fun getDatabasePassword(): String {return readConfig().databasePassword }
     }
 }
