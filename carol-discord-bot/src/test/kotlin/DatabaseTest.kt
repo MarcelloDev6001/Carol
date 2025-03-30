@@ -1,11 +1,8 @@
-import com.hades.discord.bot.carol.CarolProperties
-import com.hades.discord.bot.carol.JsonConfig
 import com.hades.discord.bot.carol.database.*
 import com.hades.discord.bot.carol.database.DiscordMember
-import java.util.*
 
 suspend fun main() {
-    val inserter = DatabaseHelper()
+    val inserter = CarolDatabaseHelper()
 
     val member = DiscordMember(
         id = 779727883228020756,

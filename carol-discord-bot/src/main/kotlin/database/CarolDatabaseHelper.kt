@@ -6,11 +6,10 @@ import io.ktor.client.engine.okhttp.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
-class DatabaseHelper {
+class CarolDatabaseHelper {
     private val client = HttpClient(OkHttp) {
         install(ContentNegotiation) {
             json(Json {
@@ -23,7 +22,7 @@ class DatabaseHelper {
 
     suspend fun insertMember(member: DiscordMember) {
         try {
-            val response = client.post("${CarolProperties.getSupabaseUrl()}/rest/v1/discord_members") {
+            val response = client.post("${CarolProperties.getSupabaseUrl()}/rest/v1/${CarolDatabaseProperties.MEMBERS_TABLE}") {
                 headers {
                     append("apikey", CarolProperties.getSupabaseKey())
                     append("Authorization", "Bearer ${CarolProperties.getSupabaseKey()}")
