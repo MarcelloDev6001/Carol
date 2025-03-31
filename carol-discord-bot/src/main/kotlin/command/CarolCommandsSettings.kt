@@ -1,14 +1,11 @@
 package com.hades.discord.bot.carol.command
 
+import com.hades.discord.bot.carol.command.test.CarolTestCommand
+
 class CarolCommandsSettings {
     companion object {
-        val commands: Map<String, CarolBaseCommand> = mapOf(
-            "test" to CarolBaseCommand(
-                name = "test",
-                description = "just testing",
-                options = null,
-                guild_only = false
-            )
+        val commands: Map<String, CarolCommand> = mapOf(
+            "test" to CarolTestCommand()
         )
     }
 }

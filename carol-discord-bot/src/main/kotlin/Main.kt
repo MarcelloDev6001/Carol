@@ -5,6 +5,7 @@ package com.hades.discord.bot.carol
 import com.hades.discord.bot.carol.command.CarolBaseCommand
 import com.hades.discord.bot.carol.command.CarolBaseCommandOptions
 import com.hades.discord.bot.carol.command.CarolCommandsSettings
+import com.hades.discord.bot.carol.command.`fun`.CarolRule34Command
 import com.hades.discord.bot.carol.command.test.CarolTestCommand
 import com.hades.discord.bot.carol.listeners.CarolMessageReceivedListener
 import com.hades.discord.bot.carol.listeners.CarolSlashCommandListener
@@ -19,26 +20,23 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 fun updateCommands(builder: JDA)
 {
     val commands: CommandListUpdateAction = builder.updateCommands()
-    // Add all your commands on this action instance
     val commandsToAdd: Array<SlashCommandData> = arrayOf()
-    for ((key: String, comm: CarolBaseCommand) in CarolCommandsSettings.commands)
-    {
-        val newCommToAdd: SlashCommandData = Commands.slash(comm.getName(), comm.getDescription())
-        newCommToAdd.setGuildOnly(comm.getGuildOnly())
-        if (comm.getOptions()?.isNotEmpty() == true)
-        {
-            for (option: CarolBaseCommandOptions in comm.getOptions()!!)
-            {
-                newCommToAdd.addOption(
-                    option.type,
-                    option.name,
-                    option.description,
-                    option.required,
-                    option.autoComplete
-                )
-            }
+    for ((key, comm) in CarolCommandsSettings.commands) {
+        val newCommToAdd = Commands.slash(comm.name, comm.description)
+            .setGuildOnly(comm.guild_only)
+
+        // Verifica e adiciona opções de forma mais idiomática
+        comm.options?.takeIf { it.isNotEmpty() }?.forEach { option ->
+            newCommToAdd.addOption(
+                option.getType(),
+                option.getName(),
+                option.getDescription(),
+                option.isRequired(),
+                option.isAutoComplete()
+            )
         }
-        println("command added: " + newCommToAdd.name)
+
+        println("Command added: ${newCommToAdd.name}")
         commands.addCommands(newCommToAdd)
     }
 
@@ -49,6 +47,7 @@ fun updateCommands(builder: JDA)
 fun loadCommands()
 {
     val testCommand = CarolTestCommand()
+    val rule34Command = CarolRule34Command()
 }
 
 fun main() {

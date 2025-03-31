@@ -17,10 +17,16 @@ class CarolBaseCommand(
     public fun getGuildOnly(): Boolean {return guild_only}
 }
 
-object CarolBaseCommandOptions {
-    val name:String = ""
-    val description:String = ""
-    val type: OptionType = STRING
-    val required: Boolean = false
-    val autoComplete: Boolean = false
+class CarolBaseCommandOptions (
+    @NotNull private val _name:String = "",
+    private val _description:String = "",
+    private val _type: OptionType = STRING,
+    private val _required: Boolean = false,
+    private val _autoComplete: Boolean = false
+) {
+    fun getName(): String = _name
+    fun getDescription(): String = _description
+    fun getType(): OptionType = _type
+    fun isRequired(): Boolean = _required
+    fun isAutoComplete(): Boolean = _autoComplete
 }
