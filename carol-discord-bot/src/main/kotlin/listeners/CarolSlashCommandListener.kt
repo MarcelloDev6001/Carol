@@ -7,8 +7,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping
 
 public class CarolSlashCommandListener : ListenerAdapter() {
     override fun onSlashCommandInteraction(event: SlashCommandInteractionEvent) {
-        val command: CarolCommand = CarolCommand(event.interaction)
-        command.onCommandExecuted(event.interaction.name)
+        CarolCommand.dispatchInteraction(event)
         println("Command executed: " + event.interaction.name)
     }
 }

@@ -5,6 +5,7 @@ package com.hades.discord.bot.carol
 import com.hades.discord.bot.carol.command.CarolBaseCommand
 import com.hades.discord.bot.carol.command.CarolBaseCommandOptions
 import com.hades.discord.bot.carol.command.CarolCommandsSettings
+import com.hades.discord.bot.carol.command.test.CarolTestCommand
 import com.hades.discord.bot.carol.listeners.CarolMessageReceivedListener
 import com.hades.discord.bot.carol.listeners.CarolSlashCommandListener
 import net.dv8tion.jda.api.JDA
@@ -45,6 +46,11 @@ fun updateCommands(builder: JDA)
     commands.queue()
 }
 
+fun loadCommands()
+{
+    val testCommand = CarolTestCommand()
+}
+
 fun main() {
     val token = CarolProperties.getToken()
     println("token: " + token)
@@ -57,4 +63,5 @@ fun main() {
         .awaitReady()
 
     updateCommands(builder)
+    loadCommands()
 }
