@@ -5,7 +5,7 @@ suspend fun main() {
     val inserter = CarolDatabaseHelper()
 
     val member = DiscordMember(
-        id = 779727883228020756,
+        id = 12345129039,
         money = 1000,
         isBanned = false,
         xpInGuilds = mapOf("guild1" to 150, "guild2" to 300),
@@ -17,7 +17,7 @@ suspend fun main() {
 
     // Operações CRUD
     runCatching {
-        inserter.insertMember(member)
+        inserter.insert(member)
     }.onFailure { e ->
         println("Erro ao acessar Supabase: ${e.message}")
     }
