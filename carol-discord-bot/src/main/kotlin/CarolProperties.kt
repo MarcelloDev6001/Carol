@@ -6,6 +6,7 @@ import java.io.File
 data class JsonConfig(
     val token: String,
     val applicationId: Long,
+    val prefix: String,
     val supabaseUrl: String,
     val supabaseKey: String,
     val databaseName: String,
@@ -22,6 +23,7 @@ class CarolProperties {
         }
         public fun getToken(): String {return readConfig().token }
         public fun getApplicationId(): Long {return readConfig().applicationId }
+        public fun getPrefix(): String {return readConfig().prefix }
         public fun getSupabaseUrl(): String {return readConfig().supabaseUrl }
         public fun getSupabaseKey(): String {return readConfig().supabaseKey }
         public fun getDatabaseName(): String {return readConfig().databaseName }

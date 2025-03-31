@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
 
 fun updateCommands(builder: JDA)
 {
+    builder.updateCommands()
     val commands: CommandListUpdateAction = builder.updateCommands()
     val commandsToAdd: Array<SlashCommandData> = arrayOf()
     for ((key, comm) in CarolCommandsSettings.commands) {
@@ -36,8 +37,8 @@ fun updateCommands(builder: JDA)
             )
         }
 
-        println("Command added: ${newCommToAdd.name}")
         commands.addCommands(newCommToAdd)
+        println("Command added: ${newCommToAdd.name}")
     }
 
     // Then finally send your commands to discord using the API
@@ -55,12 +56,13 @@ fun main() {
     println("token: " + token)
 
     // here we start
-    val builder: JDA = JDABuilder.createDefault(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
+    val builder: JDA = JDABuilder.create(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
         .addEventListeners(CarolMessageReceivedListener())
         .addEventListeners(CarolSlashCommandListener())
         .build()
-        .awaitReady()
 
     updateCommands(builder)
     loadCommands()
+
+    builder.awaitReady()
 }

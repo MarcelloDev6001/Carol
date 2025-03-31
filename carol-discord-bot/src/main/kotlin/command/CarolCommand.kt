@@ -1,14 +1,19 @@
 package com.hades.discord.bot.carol.command
 
+import com.hades.discord.bot.carol.CarolProperties
 import dev.minn.jda.ktx.messages.send
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction
 import java.time.Duration
-import java.time.temporal.TemporalUnit
-import java.util.concurrent.TimeUnit
 
-open class CarolCommand(val name: String, val description: String, val options: List<CarolBaseCommandOptions>?, val guild_only: Boolean) {
-    protected lateinit var interaction: SlashCommandInteraction
-        private set
+open class CarolCommand(
+    val name: String,
+    val description: String,
+    val options: List<CarolBaseCommandOptions>?,
+    val guild_only: Boolean
+) {
+    protected var interaction: SlashCommandInteraction? = null
+    protected var message: MessageReceivedEvent? = null
 
     companion object {
         private val allCommands = mutableListOf<CarolCommand>()
@@ -16,7 +21,17 @@ open class CarolCommand(val name: String, val description: String, val options: 
         fun dispatchInteraction(interaction: SlashCommandInteraction) {
             allCommands.firstOrNull { it.name == interaction.name }?.apply {
                 this.interaction = interaction
+                this.message = null
                 onCommandExecuted(interaction)
+            }
+        }
+
+        fun dispatchMessageCommand(message: MessageReceivedEvent, command: String) {
+            println(command)
+            allCommands.firstOrNull { it.name == command }?.apply {
+                this.message = message
+                this.interaction = null
+                onMessageCommandExecuted(message)
             }
         }
     }
@@ -26,26 +41,36 @@ open class CarolCommand(val name: String, val description: String, val options: 
     }
 
     open fun onCommandExecuted(interaction: SlashCommandInteraction) {
-        interaction.reply("Comando $name executado!").queue()
+        println("comando executado: ${interaction.name}")
+    }
+
+    open fun onMessageCommandExecuted(message: MessageReceivedEvent) {
+        println("comando de mensagem executado.")
     }
 
     protected fun reply(content: String, ephemeral: Boolean = false) {
-        if (::interaction.isInitialized) {
-            interaction.reply(content).setEphemeral(ephemeral).queue()
+        interaction?.let {
+            try {
+                it.reply(content).setEphemeral(ephemeral).queue()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return
+        }
+
+        message?.let {
+            it.message.reply(content).queue()
         }
     }
 
-    protected fun replyOnInteractionChannel(content: String, delay: Long = 0)
-    {
-        if (::interaction.isInitialized)
-        {
+    protected fun replyOnInteractionChannel(content: String, delay: Long = 0) {
+        val channel = interaction?.channel ?: message?.channel
+        channel?.let {
             if (delay > 0) {
-                interaction.channel.sendTyping().queue()
-                interaction.channel.sendMessage(content).delay(Duration.ofSeconds(delay)).queue()
-            }
-            else
-            {
-                interaction.channel.sendMessage(content).queue()
+                it.sendTyping().queue()
+                it.sendMessage(content).delay(Duration.ofSeconds(delay)).queue()
+            } else {
+                it.sendMessage(content).queue()
             }
         }
     }
