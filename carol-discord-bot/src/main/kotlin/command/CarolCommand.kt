@@ -2,6 +2,7 @@ package com.hades.discord.bot.carol.command
 
 import com.hades.discord.bot.carol.CarolProperties
 import dev.minn.jda.ktx.messages.send
+import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction
 import java.time.Duration
@@ -72,6 +73,14 @@ open class CarolCommand(
             } else {
                 it.sendMessage(content).queue()
             }
+        }
+    }
+
+    protected fun replyMessage(content: String, originalMessage: Message?)
+    {
+        val channel = interaction?.channel ?: message?.channel
+        channel?.let {
+            it.sendMessage(content).setMessageReference(originalMessage?.id).queue()
         }
     }
 

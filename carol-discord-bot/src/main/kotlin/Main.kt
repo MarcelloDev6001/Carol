@@ -5,6 +5,7 @@ package com.hades.discord.bot.carol
 import com.hades.discord.bot.carol.command.CarolBaseCommand
 import com.hades.discord.bot.carol.command.CarolBaseCommandOptions
 import com.hades.discord.bot.carol.command.CarolCommandsSettings
+import com.hades.discord.bot.carol.command.`fun`.CarolReplyCommand
 import com.hades.discord.bot.carol.command.`fun`.CarolRule34Command
 import com.hades.discord.bot.carol.command.test.CarolTestCommand
 import com.hades.discord.bot.carol.listeners.CarolMessageReceivedListener
@@ -16,6 +17,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction
 import net.dv8tion.jda.api.interactions.commands.OptionType.*
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
+import net.dv8tion.jda.internal.utils.JDALogger
 
 fun updateCommands(builder: JDA)
 {
@@ -49,6 +51,7 @@ fun loadCommands()
 {
     val testCommand = CarolTestCommand()
     val rule34Command = CarolRule34Command()
+    val replyCommand = CarolReplyCommand()
 }
 
 fun main() {
@@ -56,7 +59,7 @@ fun main() {
     println("token: " + token)
 
     // here we start
-    val builder: JDA = JDABuilder.create(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
+    val builder: JDA = JDABuilder.create(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_EMOJIS_AND_STICKERS, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_MEMBERS)
         .addEventListeners(CarolMessageReceivedListener())
         .addEventListeners(CarolSlashCommandListener())
         .build()

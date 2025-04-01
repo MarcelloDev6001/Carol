@@ -148,7 +148,9 @@ class CarolDatabaseHelper {
                 when {
                     response.status.isSuccess() -> {
                         println("✅ Atualização bem-sucedida!")
-                        println("Resposta: ${response.bodyAsText()}")
+                        println("Resposta: ${response.bodyAsText()}\n" +
+                                "Status: ${response.status}\n" +
+                                "Data: ${response.requestTime}\n")
                     }
                     response.status.value == 400 -> {
                         println("❌ Erro 400 - Bad Request")
