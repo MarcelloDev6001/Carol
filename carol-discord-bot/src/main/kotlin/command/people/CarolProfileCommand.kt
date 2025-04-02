@@ -24,9 +24,6 @@ class CarolProfileCommand : CarolCommand("perfil", "veja o perfil de alguém.", 
 )
 ), true) {
     override fun onCommandExecuted(interaction: SlashCommandInteraction) {
-        reply("tá bom")
-        replyOnInteractionChannel(interaction.options[0].toString())
-
         if (interaction.getOption("pessoa") == null) // wanna see our own profile
         {
             val db = CarolDatabaseHelper(CarolProperties.getSupabaseUrl(), CarolProperties.getSupabaseKey())
@@ -49,7 +46,7 @@ class CarolProfileCommand : CarolCommand("perfil", "veja o perfil de alguém.", 
                 embedBuilder.setImage(interaction.user.avatarUrl)
                 embedBuilder.setColor(Color.WHITE)
 
-                interaction.channel.sendMessageEmbeds(embedBuilder.build()).queue()
+                interaction.replyEmbeds(embedBuilder.build()).queue()
             }
         }
         else
@@ -80,7 +77,7 @@ class CarolProfileCommand : CarolCommand("perfil", "veja o perfil de alguém.", 
                 embedBuilder.setImage(member?.avatarUrl)
                 embedBuilder.setColor(Color.WHITE)
 
-                interaction.channel.sendMessageEmbeds(embedBuilder.build()).queue()
+                interaction.replyEmbeds(embedBuilder.build()).queue()
             }
         }
     }
