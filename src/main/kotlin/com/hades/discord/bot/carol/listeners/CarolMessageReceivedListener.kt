@@ -2,10 +2,6 @@ package com.hades.discord.bot.carol.listeners
 
 import com.hades.discord.bot.carol.CarolProperties
 import com.hades.discord.bot.carol.command.CarolCommand
-import com.hades.discord.bot.carol.database.Achievement
-import com.hades.discord.bot.carol.database.CarolDatabaseHelper
-import com.hades.discord.bot.carol.database.CarolDatabaseTables
-import com.hades.discord.bot.carol.database.DiscordMember
 import com.hades.discord.bot.carol.experience.CarolExperienceManager
 import kotlinx.coroutines.runBlocking
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent

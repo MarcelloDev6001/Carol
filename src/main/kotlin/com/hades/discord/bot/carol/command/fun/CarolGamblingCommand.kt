@@ -1,19 +1,13 @@
 package com.hades.discord.bot.carol.command.`fun`
 
 import com.hades.discord.bot.carol.CarolProperties
-import com.hades.discord.bot.carol.command.CarolBaseCommandOptions
 import com.hades.discord.bot.carol.command.CarolCommand
-import io.ktor.http.*
 import kotlinx.coroutines.*
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
-import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction
-import net.dv8tion.jda.api.requests.RestAction
-import net.dv8tion.jda.api.requests.restaction.MessageCreateAction
 import java.util.concurrent.TimeUnit
 import kotlin.random.Random
-import kotlin.random.nextInt
 
 class CarolGamblingCommand : CarolCommand("gambling", "LET'S GO GAMBLING!!", emptyList(), true) {
     override fun onCommandExecuted(interaction: SlashCommandInteraction) {

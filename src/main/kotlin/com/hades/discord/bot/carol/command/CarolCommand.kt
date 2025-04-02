@@ -1,7 +1,5 @@
 package com.hades.discord.bot.carol.command
 
-import com.hades.discord.bot.carol.CarolProperties
-import dev.minn.jda.ktx.messages.send
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction

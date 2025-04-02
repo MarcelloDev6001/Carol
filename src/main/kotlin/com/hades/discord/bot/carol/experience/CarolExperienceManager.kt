@@ -4,8 +4,6 @@ import com.hades.discord.bot.carol.CarolProperties
 import com.hades.discord.bot.carol.database.CarolDatabaseHelper
 import com.hades.discord.bot.carol.database.CarolDatabaseProperties
 import com.hades.discord.bot.carol.database.DiscordMember
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import net.dv8tion.jda.api.entities.User
 
 class CarolExperienceManager {

@@ -9,12 +9,12 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
-import kotlinx.serialization.json.JsonObject
 
 class CarolDatabaseHelper(
     private val supabaseUrl: String,
     private val supabaseKey: String
 ) {
+    @OptIn(ExperimentalSerializationApi::class)
     @PublishedApi
     internal val client = HttpClient(OkHttp) {
         install(ContentNegotiation) {

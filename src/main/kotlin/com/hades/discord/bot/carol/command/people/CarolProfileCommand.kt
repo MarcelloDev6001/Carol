@@ -113,11 +113,13 @@ class CarolProfileCommand : CarolCommand("perfil", "veja o perfil de alguém.", 
                 val embedBuilder: EmbedBuilder = EmbedBuilder()
                 embedBuilder.setTitle("Perfil de ${member?.effectiveName}:")
                 embedBuilder.addField("ID:", "${member?.id}", true)
-                embedBuilder.addField("Dinheiro:", "${profileOnDatabase!!.money}", true)
-                embedBuilder.addField("XP (nesse servidor):", "${message.guild?.let {
-                    profileOnDatabase!!.xpInGuilds.getOrDefault(
-                        it.id, 0)
-                }}", true)
+                embedBuilder.addField("Dinheiro:", "${profileOnDatabase.money}", true)
+                embedBuilder.addField("XP (nesse servidor):", "${
+                    message.guild.let {
+                        profileOnDatabase.xpInGuilds.getOrDefault(
+                            it.id, 0)
+                    }
+                }", true)
                 embedBuilder.addField("Conquistas:", "Será adicionado em breve...", true)
                 embedBuilder.setFooter("Mensagem de Carol <3")
                 embedBuilder.setImage(member?.avatarUrl)

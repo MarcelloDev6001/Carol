@@ -2,8 +2,6 @@ package com.hades.discord.bot.carol
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-import com.hades.discord.bot.carol.command.CarolBaseCommand
-import com.hades.discord.bot.carol.command.CarolBaseCommandOptions
 import com.hades.discord.bot.carol.command.CarolCommandsSettings
 import com.hades.discord.bot.carol.command.`fun`.CarolGamblingCommand
 import com.hades.discord.bot.carol.command.`fun`.CarolReplyCommand
@@ -17,15 +15,11 @@ import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.interactions.commands.build.Commands
 import net.dv8tion.jda.api.requests.GatewayIntent
 import net.dv8tion.jda.api.requests.restaction.CommandListUpdateAction
-import net.dv8tion.jda.api.interactions.commands.OptionType.*
-import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData
-import net.dv8tion.jda.internal.utils.JDALogger
 
 fun updateCommands(builder: JDA)
 {
     builder.updateCommands()
     val commands: CommandListUpdateAction = builder.updateCommands()
-    val commandsToAdd: Array<SlashCommandData> = arrayOf()
     for ((key, comm) in CarolCommandsSettings.commands) {
         val newCommToAdd = Commands.slash(comm.name, comm.description)
             .setGuildOnly(comm.guild_only)

@@ -33,12 +33,12 @@ tasks.test {
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     manifest {
-        attributes["Main-Class"] = "MainKt"
+        attributes["Main-Class"] = "com.hades.discord.bot.carol.MainKt"
     }
     archiveFileName.set("CarolBot.jar")
     mergeServiceFiles()
 }
 
 application {
-    mainClass.set("MainKt")
+    mainClass.set("com.hades.discord.bot.carol.MainKt")
 }
