@@ -3,7 +3,7 @@
 ![Imagem](https://github.com/MarcelloDev6001/Carol/blob/main/avatar.png)
 ### Carol is a simple discord bot with multi purpose (like administration, diversion, utility, etc...)
 
-Carol is a lot inspired on ![Loritta](https://github.com/LorittaBot/Loritta) and Carol extremely loves she!
+Carol is a lot inspired on [Loritta](https://github.com/LorittaBot/Loritta) and Carol extremely loves she!
 Carol is currently in beta and it's subject to have a lot of changes on the future
 
 ## How to self-host Carol
