@@ -7,6 +7,7 @@ import com.hades.discord.bot.carol.command.CarolBaseCommandOptions
 import com.hades.discord.bot.carol.command.CarolCommandsSettings
 import com.hades.discord.bot.carol.command.`fun`.CarolReplyCommand
 import com.hades.discord.bot.carol.command.`fun`.CarolRule34Command
+import com.hades.discord.bot.carol.command.people.CarolProfileCommand
 import com.hades.discord.bot.carol.command.test.CarolTestCommand
 import com.hades.discord.bot.carol.listeners.CarolMessageReceivedListener
 import com.hades.discord.bot.carol.listeners.CarolSlashCommandListener
@@ -52,6 +53,7 @@ fun loadCommands()
     val testCommand = CarolTestCommand()
     val rule34Command = CarolRule34Command()
     val replyCommand = CarolReplyCommand()
+    val profileCommand = CarolProfileCommand()
 }
 
 fun main() {
