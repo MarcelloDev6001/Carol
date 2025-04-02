@@ -5,6 +5,7 @@ package com.hades.discord.bot.carol
 import com.hades.discord.bot.carol.command.CarolBaseCommand
 import com.hades.discord.bot.carol.command.CarolBaseCommandOptions
 import com.hades.discord.bot.carol.command.CarolCommandsSettings
+import com.hades.discord.bot.carol.command.`fun`.CarolGamblingCommand
 import com.hades.discord.bot.carol.command.`fun`.CarolReplyCommand
 import com.hades.discord.bot.carol.command.`fun`.CarolRule34Command
 import com.hades.discord.bot.carol.command.people.CarolProfileCommand
@@ -54,6 +55,7 @@ fun loadCommands()
     val rule34Command = CarolRule34Command()
     val replyCommand = CarolReplyCommand()
     val profileCommand = CarolProfileCommand()
+    val gamblingCommand = CarolGamblingCommand()
 }
 
 fun main() {
