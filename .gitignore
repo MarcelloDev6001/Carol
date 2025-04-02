@@ -4,6 +4,10 @@
 carol-discord-bot-legacy-js/config.json
 carol-discord-bot-test-version/config.json
 
+# legacy versions
+carol-discord-bot-legacy-js/
+carol-discord-bot-legacy-py/
+
 # compiled output
 /dist
 /tmp
