@@ -1,7 +1,7 @@
 # Carol
 
-![Imagem](https://github.com/MarcelloDev6001/Carol/blob/main/avatar.png) This is Carol
-Carol is a simple discord bot with multi purpose (like administration, diversion, utility, etc...)
+![Imagem](https://github.com/MarcelloDev6001/Carol/blob/main/avatar.png)
+### Carol is a simple discord bot with multi purpose (like administration, diversion, utility, etc...)
 
 ## How to self-host Carol
 
