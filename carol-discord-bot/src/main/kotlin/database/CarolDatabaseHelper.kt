@@ -1,14 +1,5 @@
 package com.hades.discord.bot.carol.database
 
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.core.JsonProcessingException
-import com.fasterxml.jackson.core.StreamReadFeature
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import com.hades.discord.bot.carol.CarolProperties
 import io.ktor.client.*
 import io.ktor.client.engine.okhttp.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -16,164 +7,116 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import kotlinx.serialization.json.Json
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
+import kotlinx.serialization.json.JsonObject
 
-class CarolDatabaseHelper {
-    companion object {
-        val client = HttpClient(OkHttp) {
-            install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                    prettyPrint = true
-                })
-            }
+class CarolDatabaseHelper(
+    private val supabaseUrl: String,
+    private val supabaseKey: String
+) {
+    @PublishedApi
+    internal val client = HttpClient(OkHttp) {
+        install(ContentNegotiation) {
+            json(Json {
+                ignoreUnknownKeys = true
+                explicitNulls = false
+                coerceInputValues = true
+            })
+        }
+    }
+
+    suspend fun <T> save(
+        table: String,
+        obj: T,
+        serializer: SerializationStrategy<T>
+    ) {
+        val response = client.post("$supabaseUrl/rest/v1/$table") {
+            header("apikey", supabaseKey)
+            header("Authorization", "Bearer $supabaseKey")
+            contentType(ContentType.Application.Json)
+            header("Prefer", "resolution=merge-duplicates")
+            setBody(Json.encodeToString(serializer, obj))
         }
 
-        suspend inline fun <reified T : Any> insertOrModifyExisting(table: String, id: Long, newMemb: T) {
-            val exist: Boolean = if (get<T>(table, id) == true) true else false
-            if (exist) {
-                insert(table, newMemb)
-            } else {
-                update(table, id, newMemb)
-            }
+        when (response.status) {
+            HttpStatusCode.Created -> println("Registro criado")
+            HttpStatusCode.OK -> println("Registro atualizado")
+            else -> println("Status inesperado: ${response.status}")
         }
+    }
 
-        suspend inline fun <reified T : Any> get(table: String, id: Long): T? {
-            try {
-                // 1. Use GET em vez de POST para consultas
-                val response = client.get("${CarolProperties.getSupabaseUrl()}/rest/v1/$table?id=eq.$id") {
-                    headers {
-                        append("apikey", CarolProperties.getSupabaseKey())
-                        append("Authorization", "Bearer ${CarolProperties.getSupabaseKey()}")
-                        append("Accept", "application/json")
-                    }
-                }
+    suspend fun <T> get(
+        table: String,
+        id: Long,
+        deserializer: DeserializationStrategy<T>
+    ): T? {
+        return try {
+            val response = client.get("$supabaseUrl/rest/v1/$table?id=eq.$id") {
+                header("apikey", supabaseKey)
+                header("Authorization", "Bearer $supabaseKey")
+                accept(ContentType.Application.Json)
+            }
 
-                // 2. Verifique o status da resposta
-                if (!response.status.isSuccess()) {
-                    println("Erro na resposta: ${response.status}")
-                    return null
-                }
+            val jsonText = response.bodyAsText()
+            println(jsonText)
 
-                // 3. Trate a resposta como array (Supabase sempre retorna arrays)
-                val responseBody = response.bodyAsText()
-                val mapper = jacksonObjectMapper()
-                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-
-                val items: List<T> = mapper.readValue(
-                    responseBody,
-                    mapper.typeFactory.constructCollectionType(List::class.java, T::class.java)
-                )
-
-                // 4. Retorne o primeiro item ou null se vazio
-                return items.firstOrNull()
-            } catch (e: Exception) {
-                println("Erro ao buscar membro: ${e.message}")
-                e.printStackTrace()
+            if (jsonText.length <= 3) {
                 return null
             }
+
+            when {
+                jsonText.startsWith('[') -> {
+                    Json.decodeFromString(deserializer, jsonText.substring(1, jsonText.length - 1))
+                }
+                jsonText.startsWith('{') -> {
+                    Json.decodeFromString(deserializer, jsonText)
+                }
+                else -> null
+            }
+        } catch (e: Exception) {
+            println("Erro ao buscar: ${e.message}")
+            null
+        }
+    }
+
+    suspend fun <T> updateColumn(
+        table: String,
+        id: Long,
+        column: String,
+        newValue: T,
+        serializer: SerializationStrategy<T>
+    ) {
+        val jsonObject = buildJsonObject {
+            put(column, Json.encodeToJsonElement(serializer, newValue))
         }
 
-        suspend fun <T : Any> insert(table: String, member: T) {
-            val mapper = ObjectMapper().apply {
-                registerKotlinModule()
-                disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-            }
-
-            try {
-                // 1. Serialização segura
-                val jsonBody = mapper.writeValueAsString(member)
-                println("JSON a ser enviado: $jsonBody")
-
-                // 2. Configuração da requisição
-                val response = client.post("${CarolProperties.getSupabaseUrl()}/rest/v1/$table") {
-                    headers {
-                        append("apikey", CarolProperties.getSupabaseKey())
-                        append("Authorization", "Bearer ${CarolProperties.getSupabaseKey()}")
-                        append("Content-Type", "application/json")
-                        append("Prefer", "return=representation")
-                    }
-                    setBody(jsonBody)
-                }
-
-                // 3. Análise da resposta
-                when (response.status.value) {
-                    in 200..299 -> {
-                        println("Inserção bem-sucedida!")
-                        println("Resposta: ${response.bodyAsText()}")
-                    }
-                    400 -> {
-                        println("Erro 400 - Bad Request:")
-                        println("Corpo enviado: $jsonBody")
-                        println("Resposta do servidor: ${response.bodyAsText()}")
-                    }
-                    else -> {
-                        println("Erro na inserção: ${response.status}")
-                        println("Detalhes: ${response.bodyAsText()}")
-                    }
-                }
-            } catch (e: JsonProcessingException) {
-                println("Erro na serialização do objeto:")
-                println("Tipo do objeto: ${member::class.java}")
-                e.printStackTrace()
-            } catch (e: Exception) {
-                println("Erro geral na inserção:")
-                e.printStackTrace()
+        client.patch("$supabaseUrl/rest/v1/$table?id=eq.$id") {
+            header("apikey", supabaseKey)
+            header("Authorization", "Bearer $supabaseKey")
+            contentType(ContentType.Application.Json)
+            setBody(jsonObject.toString())
+        }.also { response ->
+            if (!response.status.isSuccess()) {
+                println("Erro ao atualizar: ${response.status}")
             }
         }
+    }
 
-        suspend fun <T : Any> update(table: String, id: Long, newMember: T) {
-            try {
-                val mapper = jacksonObjectMapper().apply {
-                    registerKotlinModule()
-                    disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-                }
+    inline suspend fun <reified T : @Serializable Any> save(table: String, obj: T) {
+        save(table, obj, serializer())
+    }
 
-                // Serializa o objeto para JSON
-                val jsonBody = mapper.writeValueAsString(newMember)
-                println("JSON sendo enviado: $jsonBody")
+    inline suspend fun <reified T : @Serializable Any> get(table: String, id: Long): T? {
+        return get(table, id, serializer())
+    }
 
-                val response = client.patch("${CarolProperties.getSupabaseUrl()}/rest/v1/$table?id=eq.$id") {
-                    headers {
-                        append("apikey", CarolProperties.getSupabaseKey())
-                        append("Authorization", "Bearer ${CarolProperties.getSupabaseKey()}")
-                        append("Content-Type", "application/json")
-                        append("Prefer", "return=representation")
-                    }
-                    setBody(jsonBody)  // Use setBody em vez de parameter
-                }
-
-                when {
-                    response.status.isSuccess() -> {
-                        println("✅ Atualização bem-sucedida!")
-                        println("Resposta: ${response.bodyAsText()}\n" +
-                                "Status: ${response.status}\n" +
-                                "Data: ${response.requestTime}\n")
-                    }
-                    response.status.value == 400 -> {
-                        println("❌ Erro 400 - Bad Request")
-                        println("Possíveis causas:")
-                        println("- Estrutura do JSON inválida")
-                        println("- Tipos de dados incompatíveis")
-                        println("- Valores ausentes para colunas NOT NULL")
-                        println("Corpo enviado: $jsonBody")
-                        println("Resposta do servidor: ${response.bodyAsText()}")
-                    }
-                    else -> {
-                        println("Erro na atualização: ${response.status}")
-                        println("Detalhes: ${response.bodyAsText()}")
-                    }
-                }
-            } catch (e: JsonProcessingException) {
-                println("Erro na serialização do objeto:")
-                println("Tipo do objeto: ${newMember::class.java}")
-                e.printStackTrace()
-            } catch (e: Exception) {
-                println("Erro geral na atualização:")
-                e.printStackTrace()
-            }
-        }
+    inline suspend fun <reified T : @Serializable Any> updateColumn(
+        table: String,
+        id: Long,
+        column: String,
+        newValue: T
+    ) {
+        updateColumn(table, id, column, newValue, serializer())
     }
 }

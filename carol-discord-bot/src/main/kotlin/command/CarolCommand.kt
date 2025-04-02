@@ -79,9 +79,7 @@ open class CarolCommand(
     protected fun replyMessage(content: String, originalMessage: Message?)
     {
         val channel = interaction?.channel ?: message?.channel
-        channel?.let {
-            it.sendMessage(content).setMessageReference(originalMessage?.id).queue()
-        }
+        channel?.sendMessage(content)?.setMessageReference(originalMessage?.id)?.queue()
     }
 
     fun getCarolCommandName() = name
