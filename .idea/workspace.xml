@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="758297fc-f07d-44e0-83cb-70d90fdb5f76" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/CarolProperties.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/CarolProperties.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/command/CarolBaseCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/command/CarolBaseCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/command/CarolCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/command/CarolCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/command/CarolCommandsSettings.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/command/CarolCommandsSettings.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/command/fun/CarolGamblingCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/command/fun/CarolGamblingCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/command/fun/CarolReplyCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/command/fun/CarolReplyCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/command/fun/CarolRule34Command.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/command/fun/CarolRule34Command.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/command/people/CarolProfileCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/command/people/CarolProfileCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/command/test/CarolTestCommand.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/command/test/CarolTestCommand.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/database/CarolDatabaseClasses.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/database/CarolDatabaseClasses.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/database/CarolDatabaseHelper.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/database/CarolDatabaseHelper.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/database/CarolDatabaseProperties.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/database/CarolDatabaseProperties.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/database/CarolDatabaseTables.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/database/CarolDatabaseTables.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/experience/CarolExperienceManager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/experience/CarolExperienceManager.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/listeners/CarolMessageReceivedListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/listeners/CarolMessageReceivedListener.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/hades/discord/bot/carol/listeners/CarolSlashCommandListener.kt" beforeDir="false" afterPath="$PROJECT_DIR$/carol-discord-bot/src/main/kotlin/com/hades/discord/bot/carol/listeners/CarolSlashCommandListener.kt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../Carol\exportToHTML" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="carol-discord-bot" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2uxWLcUHDHlC5menPBodRiQLOFM" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build Carol.executor": "Run",
+    "Gradle.Build carol-discord-bot.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Kotlin.CountLinesOnGithubTestKt.executor": "Run",
+    "Kotlin.DatabaseTestKt.executor": "Run",
+    "Kotlin.MainKt.executor": "Run",
+    "Kotlin.SupabaseConnection.executor": "Run",
+    "Kotlin.SupabaseConnectionKt.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "F:/Github/carol-discord-bot/src/main/java",
+    "last_opened_file_path": "F:/Github/Carol/carol-discord-bot",
+    "onboarding.tips.debug.path": "F:/Github/carol-discord-bot/src/main/kotlin/Main.kt",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "advanced.settings"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.hades.discord.bot.carol.database.classes" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\Github\Carol\carol-discord-bot" />
+      <recent name="F:\Github\Carol" />
+      <recent name="F:\Github\Carol\src\main\kotlin\com\hades\discord\bot\carol" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="command.fun" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Kotlin.MainKt">
+    <configuration name="CountLinesOnGithubTestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="CountLinesOnGithubTestKt" />
+      <module name="carol-discord-bot.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DatabaseTestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="DatabaseTestKt" />
+      <module name="carol-discord-bot.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.hades.discord.bot.carol.com.hades.discord.bot.carol.MainKt" />
+      <module name="carol-discord-bot.main" />
+      <shortenClasspath name="NONE" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SupabaseConnection" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.hades.discord.bot.carol.database.SupabaseConnection" />
+      <module name="carol-discord-bot.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SupabaseConnectionKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.hades.discord.bot.carol.database.SupabaseConnectionKt" />
+      <module name="carol-discord-bot.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Kotlin.MainKt" />
+        <item itemvalue="Kotlin.CountLinesOnGithubTestKt" />
+        <item itemvalue="Kotlin.DatabaseTestKt" />
+        <item itemvalue="Kotlin.SupabaseConnectionKt" />
+        <item itemvalue="Kotlin.SupabaseConnection" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="758297fc-f07d-44e0-83cb-70d90fdb5f76" name="Changes" comment="" />
+      <created>1743190655339</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743190655339</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="d3caef52-a030-4f61-ac2a-b4edc5136a80" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+        <entry key="d3caef52-a030-4f61-ac2a-b4edc5136a80">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
