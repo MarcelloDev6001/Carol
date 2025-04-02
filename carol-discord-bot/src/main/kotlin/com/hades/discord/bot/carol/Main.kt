@@ -3,6 +3,7 @@ package com.hades.discord.bot.carol
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 import com.hades.discord.bot.carol.command.CarolCommandsSettings
+import com.hades.discord.bot.carol.command.`fun`.CarolFuneralCommand
 import com.hades.discord.bot.carol.command.`fun`.CarolGamblingCommand
 import com.hades.discord.bot.carol.command.`fun`.CarolReplyCommand
 import com.hades.discord.bot.carol.command.`fun`.CarolRule34Command
@@ -50,6 +51,7 @@ fun loadCommands()
     val replyCommand = CarolReplyCommand()
     val profileCommand = CarolProfileCommand()
     val gamblingCommand = CarolGamblingCommand()
+    val funeralCommand = CarolFuneralCommand()
 }
 
 fun main() {
