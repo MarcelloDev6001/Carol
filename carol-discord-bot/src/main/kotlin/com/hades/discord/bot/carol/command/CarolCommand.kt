@@ -2,14 +2,16 @@ package com.hades.discord.bot.carol.command
 
 import net.dv8tion.jda.api.entities.Message
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent
+import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction
 import java.time.Duration
 
 open class CarolCommand(
     val name: String,
-    val description: String,
+    val description: String = "",
     val options: List<CarolBaseCommandOptions>?,
-    val guild_only: Boolean
+    val guild_only: Boolean = true,
+    val permissionsRequired: DefaultMemberPermissions? = null
 ) {
     protected var interaction: SlashCommandInteraction? = null
     protected var message: MessageReceivedEvent? = null

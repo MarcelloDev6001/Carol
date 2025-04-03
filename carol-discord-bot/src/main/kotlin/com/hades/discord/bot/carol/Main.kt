@@ -9,6 +9,7 @@ import com.hades.discord.bot.carol.command.`fun`.CarolReplyCommand
 import com.hades.discord.bot.carol.command.`fun`.CarolRule34Command
 import com.hades.discord.bot.carol.command.people.CarolProfileCommand
 import com.hades.discord.bot.carol.command.test.CarolTestCommand
+import com.hades.discord.bot.carol.command.util.CarolDashboardCommand
 import com.hades.discord.bot.carol.listeners.CarolMessageReceivedListener
 import com.hades.discord.bot.carol.listeners.CarolSlashCommandListener
 import net.dv8tion.jda.api.JDA
@@ -24,6 +25,11 @@ fun updateCommands(builder: JDA)
     for ((key, comm) in CarolCommandsSettings.commands) {
         val newCommToAdd = Commands.slash(comm.name, comm.description)
             .setGuildOnly(comm.guild_only)
+
+        if (comm.permissionsRequired != null)
+        {
+            newCommToAdd.setDefaultPermissions(comm.permissionsRequired)
+        }
 
         // Verifica e adiciona opções de forma mais idiomática
         comm.options?.takeIf { it.isNotEmpty() }?.forEach { option ->
@@ -52,6 +58,7 @@ fun loadCommands()
     val profileCommand = CarolProfileCommand()
     val gamblingCommand = CarolGamblingCommand()
     val funeralCommand = CarolFuneralCommand()
+    val carolDashboardCommand = CarolDashboardCommand()
 }
 
 fun main() {

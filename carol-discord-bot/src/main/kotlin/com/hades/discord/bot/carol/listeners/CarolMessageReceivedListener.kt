@@ -12,15 +12,6 @@ public class CarolMessageReceivedListener : ListenerAdapter() {
         // Why would i get a bot message?
         if (event.author.isBot) return
 
-        runBlocking {
-            CarolExperienceManager.addXPToMember(event.author, event.guild.id.toString(), 10)
-        }
-
-        // first command, here where i first started...
-        if (event.message.contentRaw.equals("!olamundo", ignoreCase = true)) {
-            event.message.reply("Olá, mundo!").queue()
-        }
-
         val messageParts = event.message.contentRaw.split("\\s+".toRegex(), limit = 2)
         val checkForCommand = messageParts[0]
 
@@ -28,6 +19,16 @@ public class CarolMessageReceivedListener : ListenerAdapter() {
             val comm = checkForCommand.substring(CarolProperties.getPrefix().length)
             val args = if (messageParts.size > 1) messageParts[1].split("\\s+".toRegex()) else emptyList()
             executeMessageCommands(comm, args, event)
+            return
+        }
+
+        runBlocking {
+            CarolExperienceManager.addXPToMember(event.author, event.guild.id.toString(), 10)
+        }
+
+        // first command, here where i first started...
+        if (event.message.contentRaw.equals("!olamundo", ignoreCase = true)) {
+            event.message.reply("Olá, mundo!").queue()
         }
     }
 
